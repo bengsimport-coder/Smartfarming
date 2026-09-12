@@ -54,19 +54,19 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col overflow-x-hidden w-full max-w-full">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
 
-    <header class="bg-agri-800 text-white shadow-md sticky top-0 z-40 w-full overflow-hidden">
-        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 gap-2 min-w-0">
+    <header class="bg-agri-800 text-white shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
                 <!-- Logo & Brand -->
-                <div class="flex items-center gap-2 min-w-0 shrink-0">
-                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-agri-500 text-white flex items-center justify-center font-bold text-lg shadow-lg shadow-agri-900/30 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-agri-500 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-agri-900/30">
                         <i class="fa-solid fa-seedling"></i>
                     </div>
-                    <div class="min-w-0">
-                        <h1 class="font-bold text-sm sm:text-lg leading-none tracking-wide truncate">Smart Farming</h1>
-                        <span class="text-[10px] sm:text-xs text-agri-200 hidden sm:block">Greenhouse & Investor Hub</span>
+                    <div>
+                        <h1 class="font-bold text-lg leading-none tracking-wide">Smart Farming</h1>
+                        <span class="text-xs text-agri-200">Greenhouse & Investor Hub</span>
                     </div>
                 </div>
 
@@ -99,16 +99,16 @@
                 </nav>
 
                 <!-- Controls & DB Status -->
-                <div class="flex items-center gap-1.5 sm:gap-3 shrink min-w-0">
-                    <div class="relative inline-block text-left max-w-[140px] xs:max-w-[170px] sm:max-w-none">
-                        <select id="roleSelector" onchange="handleRoleChange(this.value)" class="w-full bg-agri-900 border border-agri-700 text-[11px] sm:text-xs text-agri-100 rounded-lg px-2 py-1.5 focus:outline-none cursor-pointer font-medium truncate">
-                            <option value="investor" selected>💼 Investor (Read-Only)</option>
-                            <option value="manajer">🌾 Manajer Kebun</option>
+                <div class="flex items-center gap-3">
+                    <div class="relative inline-block text-left">
+                        <select id="roleSelector" onchange="handleRoleChange(this.value)" class="bg-agri-900 border border-agri-700 text-xs text-agri-100 rounded-lg px-2.5 py-1.5 focus:outline-none cursor-pointer font-medium">
+                            <option value="investor" selected>💼 User / Investor (Read-Only)</option>
+                            <option value="manajer">🌾 Manajer Kebun (Read-Only)</option>
                             <option value="admin">🔒 👑 Admin Pengelola</option>
                         </select>
                     </div>
 
-                    <div id="dbStatusBadge" class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-emerald-900/80 text-emerald-200 border border-emerald-500/30 shrink-0">
+                    <div id="dbStatusBadge" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-emerald-900/80 text-emerald-200 border border-emerald-500/30">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                         <span id="dbStatusText">Connecting...</span>
                     </div>
@@ -117,7 +117,7 @@
         </div>
 
         <!-- Mobile Scrollable Bar -->
-        <div class="lg:hidden flex overflow-x-auto space-x-2 px-3 py-2 bg-agri-900 text-xs custom-scrollbar whitespace-nowrap w-full">
+        <div class="lg:hidden flex overflow-x-auto space-x-2 px-4 py-2 bg-agri-900 text-xs custom-scrollbar whitespace-nowrap">
             <button onclick="switchTab('dashboard')" id="mob-nav-dashboard" class="px-3 py-1 rounded-md text-xs font-bold transition-all bg-yellow-400 text-slate-950 shadow-sm border border-yellow-300">Beranda</button>
             <button onclick="switchTab('aruskas')" id="mob-nav-aruskas" class="px-3 py-1 rounded-md text-xs font-normal bg-agri-800 text-white hover:bg-agri-700 transition-all">Arus Kas</button>
             <button onclick="switchTab('modalsaham')" id="mob-nav-modalsaham" class="px-3 py-1 rounded-md text-xs font-normal bg-agri-800 text-white hover:bg-agri-700 transition-all">Modal Saham</button>
@@ -129,7 +129,7 @@
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 min-w-0 overflow-x-hidden">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
         <!-- Notification Toast Box -->
         <div id="toastBox" class="hidden fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl bg-slate-900 text-white shadow-2xl flex items-center gap-3 border border-slate-700 text-sm">
@@ -177,18 +177,33 @@
         </div>
 
         <div id="tab-dashboard" class="space-y-6">
-            <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
                     <h3 class="font-bold text-slate-800 text-base">Ringkasan Eksekutif & Statistik</h3>
                     <p class="text-xs text-slate-400">Ikhtisar seluruh transaksi operasional dan finansial</p>
                 </div>
-                <button onclick="exportTabPDF('dashboard')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
-                    <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Beranda
-                </button>
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-56">
+                        <input type="text" id="searchDashboard" oninput="renderDashboardSummary()" placeholder="Cari di beranda..." class="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-agri-500 bg-slate-50">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                    </div>
+                    <button onclick="exportTabPDF('dashboard')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
+                        <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Beranda
+                    </button>
+                </div>
             </div>
             
             <!-- Summary Metric Cards Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="p-5 bg-indigo-50/70 rounded-2xl shadow-sm border border-indigo-100 hover:shadow-md transition-all">
+                    <div class="flex items-center justify-between text-slate-600 text-xs font-semibold mb-2">
+                        <span>Saldo Kas Operasional</span>
+                        <i class="fa-solid fa-wallet text-indigo-600 text-base"></i>
+                    </div>
+                    <h4 id="statSaldoKas" class="text-xl font-extrabold text-indigo-900">Rp 0</h4>
+                    <p class="text-[11px] text-slate-500 mt-1">Kas masuk dikurangi kas keluar</p>
+                </div>
+
                 <div class="p-5 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all">
                     <div class="flex items-center justify-between text-slate-500 text-xs font-medium mb-2">
                         <span>Total Modal Saham</span>
@@ -232,15 +247,6 @@
                     </div>
                     <h4 id="statTotalPanen" class="text-xl font-bold text-emerald-600">Rp 0</h4>
                     <p class="text-[11px] text-slate-400 mt-1">Hasil penjualan komoditas</p>
-                </div>
-
-                <div class="p-5 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all">
-                    <div class="flex items-center justify-between text-slate-500 text-xs font-medium mb-2">
-                        <span>Saldo Kas Operasional</span>
-                        <i class="fa-solid fa-wallet text-indigo-500 text-base"></i>
-                    </div>
-                    <h4 id="statSaldoKas" class="text-xl font-bold text-slate-800">Rp 0</h4>
-                    <p class="text-[11px] text-slate-400 mt-1">Kas masuk dikurangi kas keluar</p>
                 </div>
 
                 <div class="p-5 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all sm:col-span-2 lg:col-span-3">
@@ -298,7 +304,11 @@
                     <h3 class="font-bold text-slate-800 text-base">Catatan Arus Kas Operasional</h3>
                     <p class="text-xs text-slate-400">Riwayat pengeluaran dan pemasukan dana proyek</p>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-56">
+                        <input type="text" id="searchArusKas" oninput="renderTableCashflow()" placeholder="Cari arus kas..." class="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-agri-500 bg-slate-50">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                    </div>
                     <button onclick="exportTabPDF('aruskas')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
                         <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Arus Kas
                     </button>
@@ -333,7 +343,11 @@
                     <h3 class="font-bold text-slate-800 text-base">Data & Transaksi Modal Saham</h3>
                     <p class="text-xs text-slate-400">Pencatatan pemasukan modal & detail pembelian aset/operasional per investor</p>
                 </div>
-                <div class="flex flex-wrap items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-56">
+                        <input type="text" id="searchInvestor" oninput="renderTableInvestors()" placeholder="Cari investor / detail..." class="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-agri-500 bg-slate-50">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                    </div>
                     <button onclick="exportTabPDF('modalsaham')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
                         <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Saham
                     </button>
@@ -377,12 +391,16 @@
         </div>
 
         <div id="tab-greenhouse" class="hidden space-y-4">
-            <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
                     <h3 class="font-bold text-slate-800 text-base">Aset & Konstruksi Green House</h3>
                     <p class="text-xs text-slate-400">Rincian investasi pembangunan infrastruktur fisik kebun</p>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-56">
+                        <input type="text" id="searchGH" oninput="renderTableGH()" placeholder="Cari aset green house..." class="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-agri-500 bg-slate-50">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                    </div>
                     <button onclick="exportTabPDF('greenhouse')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
                         <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Green House
                     </button>
@@ -410,12 +428,16 @@
         </div>
 
         <div id="tab-modaltanaman" class="hidden space-y-4">
-            <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
                     <h3 class="font-bold text-slate-800 text-base">Modal Operasional Tanaman</h3>
                     <p class="text-xs text-slate-400">Biaya benih, nutrisi, pestisida, dan perawatan per batch</p>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-56">
+                        <input type="text" id="searchTanaman" oninput="renderTableTanaman()" placeholder="Cari modal tanaman..." class="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-agri-500 bg-slate-50">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                    </div>
                     <button onclick="exportTabPDF('modaltanaman')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
                         <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Tanaman
                     </button>
@@ -445,12 +467,16 @@
 
         <!-- TAB: MODAL MEDIA / BAHAN -->
         <div id="tab-mediabahan" class="hidden space-y-4">
-            <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
                     <h3 class="font-bold text-slate-800 text-base">Modal Media Tanam & Bahan Operasional</h3>
                     <p class="text-xs text-slate-400">Pencatatan persediaan media tanam, bahan kimia, polibag, dan perlengkapan kebun</p>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-56">
+                        <input type="text" id="searchMediaBahan" oninput="renderTableMediaBahan()" placeholder="Cari media / bahan..." class="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-agri-500 bg-slate-50">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                    </div>
                     <button onclick="exportTabPDF('mediabahan')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
                         <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Media/Bahan
                     </button>
@@ -479,12 +505,16 @@
         </div>
 
         <div id="tab-hasilpanen" class="hidden space-y-4">
-            <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
                     <h3 class="font-bold text-slate-800 text-base">Pemasukan & Penjualan Hasil Panen</h3>
                     <p class="text-xs text-slate-400">Pencatatan volume dan nilai penjualan komoditas</p>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-56">
+                        <input type="text" id="searchPanen" oninput="renderTablePanen()" placeholder="Cari hasil panen..." class="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-agri-500 bg-slate-50">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                    </div>
                     <button onclick="exportTabPDF('hasilpanen')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
                         <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Panen
                     </button>
@@ -515,28 +545,19 @@
 
         <div id="tab-bagihasil" class="hidden space-y-4">
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-                <div class="flex justify-between items-center border-b pb-3">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-3 gap-3">
                     <div>
                         <h3 class="font-bold text-slate-800 text-base">Kalkulasi Pembagian Dividen Investor</h3>
                         <p class="text-xs text-slate-400">Perhitungan pembagian laba bersih (Penjualan Panen dikurangi Modal Tanaman)</p>
                     </div>
-                    <button onclick="exportTabPDF('bagihasil')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
-                        <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Bagi Hasil
-                    </button>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200/80 text-xs">
-                    <div>
-                        <span class="text-slate-500 font-medium">Total Penjualan Panen:</span>
-                        <div id="calcGrossRevenue" class="text-base font-bold text-slate-800">Rp 0</div>
-                    </div>
-                    <div>
-                        <span class="text-slate-500 font-medium">Total Biaya Tanaman:</span>
-                        <div id="calcCropCosts" class="text-base font-bold text-amber-600">Rp 0</div>
-                    </div>
-                    <div>
-                        <span class="text-slate-500 font-medium">Laba Bersih Dibagi:</span>
-                        <div id="calcNetProfit" class="text-base font-bold text-purple-700">Rp 0</div>
+                    <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                        <div class="relative w-full sm:w-56">
+                            <input type="text" id="searchBagiHasil" oninput="calculateProfitSharing()" placeholder="Cari investor bagi hasil..." class="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-agri-500 bg-slate-50">
+                            <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                        </div>
+                        <button onclick="exportTabPDF('bagihasil')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
+                            <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Bagi Hasil
+                        </button>
                     </div>
                 </div>
 
@@ -615,6 +636,10 @@
                     <input type="text" id="cfDesc" required placeholder="Contoh: Beli Pupuk AB Mix" class="w-full px-3 py-2 border rounded-xl text-xs">
                 </div>
                 <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Transaksi <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
+                    <input type="date" id="cfDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
+                </div>
+                <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Nominal (Rp)</label>
                     <input type="text" inputmode="numeric" id="cfAmount" required oninput="formatInputThousand(this)" placeholder="0" class="w-full px-3 py-2 border rounded-xl text-xs font-bold text-slate-800">
                 </div>
@@ -658,6 +683,10 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Detail Pembelian / Pemasukan</label>
                     <input type="text" id="invDetail" required placeholder="Contoh: Setoran Modal / Pembelian Pompa" class="w-full px-3 py-2 border rounded-xl text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Transaksi <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
+                    <input type="date" id="invDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Nominal (Rp)</label>
@@ -706,6 +735,10 @@
                     </select>
                 </div>
                 <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Pembelian <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
+                    <input type="date" id="dpDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
+                </div>
+                <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Nominal Pembelian (Rp)</label>
                     <input type="text" inputmode="numeric" id="dpAmount" required oninput="formatInputThousand(this)" placeholder="0" class="w-full px-3 py-2 border rounded-xl text-xs font-bold text-slate-800">
                 </div>
@@ -732,6 +765,10 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Kategori</label>
                     <input type="text" id="ghCategory" required placeholder="Contoh: Konstruksi / Irigasi" class="w-full px-3 py-2 border rounded-xl text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Aset / Transaksi <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
+                    <input type="date" id="ghDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Biaya (Rp)</label>
@@ -762,6 +799,10 @@
                     <input type="text" id="tanItem" required placeholder="Contoh: Nutrisi AB Mix 500L" class="w-full px-3 py-2 border rounded-xl text-xs">
                 </div>
                 <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Transaksi <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
+                    <input type="date" id="tanDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
+                </div>
+                <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Biaya (Rp)</label>
                     <input type="text" inputmode="numeric" id="tanCost" required oninput="formatInputThousand(this)" placeholder="0" class="w-full px-3 py-2 border rounded-xl text-xs font-bold text-slate-800">
                 </div>
@@ -788,6 +829,10 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Kategori / Spesifikasi</label>
                     <input type="text" id="mbCategory" required placeholder="Contoh: Media Tanam / Nutrisi / Perlengkapan" class="w-full px-3 py-2 border rounded-xl text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Pembelian <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
+                    <input type="date" id="mbDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Biaya (Rp)</label>
@@ -820,6 +865,10 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Harga per Kg (Rp)</label>
                     <input type="text" inputmode="numeric" id="panPrice" required oninput="formatInputThousand(this)" placeholder="0" class="w-full px-3 py-2 border rounded-xl text-xs font-bold text-slate-800">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Panen <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
+                    <input type="date" id="panDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
                 </div>
                 <div class="pt-2 flex justify-end gap-2">
                     <button type="button" onclick="closeModal('modalPanen')" class="px-4 py-2 border rounded-xl text-xs font-semibold">Batal</button>
@@ -1227,6 +1276,20 @@
             return Number(String(val).replace(/\D/g, '')) || 0;
         }
 
+        function getTimestampFromInput(inputId) {
+            const el = document.getElementById(inputId);
+            if (el && el.value) {
+                const parts = el.value.split('-');
+                if (parts.length === 3) {
+                    const year = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10) - 1;
+                    const day = parseInt(parts[2], 10);
+                    return new Date(year, month, day, 12, 0, 0).getTime();
+                }
+            }
+            return Date.now();
+        }
+
         const historyStack = [];
         const redoStack = [];
         const MAX_HISTORY = 25;
@@ -1333,6 +1396,11 @@
             downloadAnchor.remove();
 
             showToast("File backup JSON berhasil diunduh!");
+        };
+
+        window.triggerImportJson = function() {
+            const input = document.getElementById('jsonFileInput');
+            if (input) input.click();
         };
 
         window.handleImportJson = function(event) {
@@ -1518,19 +1586,19 @@
             return map;
         }
 
-        function renderAll() {
-            renderDashboardSummary();
-            renderTableCashflow();
-            renderTableInvestors();
-            renderTableGH();
-            renderTableTanaman();
-            renderTableMediaBahan();
-            renderTablePanen();
-            calculateProfitSharing();
+        window.renderAll = function() {
+            window.renderDashboardSummary();
+            window.renderTableCashflow();
+            window.renderTableInvestors();
+            window.renderTableGH();
+            window.renderTableTanaman();
+            window.renderTableMediaBahan();
+            window.renderTablePanen();
+            window.calculateProfitSharing();
             window.updateRoleVisibility();
-        }
+        };
 
-        function renderDashboardSummary() {
+        window.renderDashboardSummary = function() {
             const invTotals = calculateInvestorTotals();
             const totalSaham = Object.values(invTotals).reduce((acc, inv) => acc + Math.max(0, inv.net), 0);
             const totalGH = dataGH.reduce((acc, item) => acc + (Number(item.cost) || 0), 0);
@@ -1552,12 +1620,20 @@
             setText('statSaldoKas', formatRp(saldoKas));
             setText('statLabaBagiHasil', formatRp(labaBagiHasil));
 
+            const query = (document.getElementById('searchDashboard')?.value || '').toLowerCase().trim();
+
             const dashCash = document.getElementById('dashCashflowList');
             if (dashCash) {
-                if (dataCashflow.length === 0) {
-                    dashCash.innerHTML = '<p class="text-slate-400">Belum ada transaksi kas.</p>';
+                const filteredCF = query ? dataCashflow.filter(c => 
+                    (c.category || '').toLowerCase().includes(query) || 
+                    (c.desc || c.detail || '').toLowerCase().includes(query) || 
+                    String(c.amount).includes(query)
+                ) : dataCashflow;
+
+                if (filteredCF.length === 0) {
+                    dashCash.innerHTML = '<p class="text-slate-400">Belum ada transaksi kas cocok.</p>';
                 } else {
-                    dashCash.innerHTML = dataCashflow.slice(0, 4).map(c => `
+                    dashCash.innerHTML = filteredCF.slice(0, 4).map(c => `
                         <div class="p-2 rounded bg-slate-50 border border-slate-100 flex justify-between items-center">
                             <div>
                                 <span class="font-bold text-slate-800">${escapeHtml(c.category)}</span>
@@ -1573,9 +1649,12 @@
 
             const dashInv = document.getElementById('dashInvestorList');
             if (dashInv) {
-                const investorNames = Object.keys(invTotals);
+                let investorNames = Object.keys(invTotals);
+                if (query) {
+                    investorNames = investorNames.filter(name => name.toLowerCase().includes(query));
+                }
                 if (investorNames.length === 0) {
-                    dashInv.innerHTML = '<p class="text-slate-400">Belum ada investor terdaftar.</p>';
+                    dashInv.innerHTML = '<p class="text-slate-400">Belum ada investor cocok.</p>';
                 } else {
                     dashInv.innerHTML = investorNames.map(name => {
                         const netVal = Math.max(0, invTotals[name].net);
@@ -1592,9 +1671,9 @@
                     }).join('');
                 }
             }
-        }
+        };
 
-        function renderTableCashflow() {
+        window.renderTableCashflow = function() {
             const kasMasuk = dataCashflow.filter(c => c.type === 'masuk').reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
             const kasKeluar = dataCashflow.filter(c => c.type === 'keluar').reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
             const saldoKas = kasMasuk - kasKeluar;
@@ -1605,11 +1684,20 @@
 
             const tbody = document.getElementById('tableCashflow');
             if (!tbody) return;
-            if (dataCashflow.length === 0) {
+
+            const query = (document.getElementById('searchArusKas')?.value || '').toLowerCase().trim();
+            const listData = query ? dataCashflow.filter(c => 
+                (c.category || '').toLowerCase().includes(query) || 
+                (c.desc || c.detail || '').toLowerCase().includes(query) || 
+                (c.type || '').toLowerCase().includes(query) || 
+                String(c.amount).includes(query)
+            ) : dataCashflow;
+
+            if (listData.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada catatan arus kas.</td></tr>';
                 return;
             }
-            tbody.innerHTML = dataCashflow.map(item => `
+            tbody.innerHTML = listData.map(item => `
                 <tr class="hover:bg-slate-50">
                     <td class="p-3 text-slate-500">${item.date ? new Date(item.date).toLocaleDateString('id-ID') : '-'}</td>
                     <td class="p-3 font-semibold">
@@ -1627,18 +1715,23 @@
                     </td>
                 </tr>
             `).join('');
-        }
+        };
 
-        function renderTableInvestors() {
+        window.renderTableInvestors = function() {
             const tbody = document.getElementById('tableInvestor');
             const gridSummary = document.getElementById('gridInvestorSummary');
 
             const invTotals = calculateInvestorTotals();
             const totalSahamNet = Object.values(invTotals).reduce((acc, inv) => acc + Math.max(0, inv.net), 0);
 
+            const query = (document.getElementById('searchInvestor')?.value || '').toLowerCase().trim();
+
             if (gridSummary) {
                 const defaultNames = ['Pak Bambang', 'Pak Yanto', 'Pak Umar', 'Pak zamhur'];
-                const allInvestorNames = Array.from(new Set([...defaultNames, ...Object.keys(invTotals)]));
+                let allInvestorNames = Array.from(new Set([...defaultNames, ...Object.keys(invTotals)]));
+                if (query) {
+                    allInvestorNames = allInvestorNames.filter(n => n.toLowerCase().includes(query));
+                }
 
                 gridSummary.innerHTML = allInvestorNames.map(name => {
                     const data = invTotals[name] || { totalMasuk: 0, totalKeluar: 0, net: 0 };
@@ -1664,12 +1757,19 @@
             }
 
             if (!tbody) return;
-            if (dataInvestors.length === 0) {
+            const listData = query ? dataInvestors.filter(i => 
+                (i.name || '').toLowerCase().includes(query) || 
+                (i.detail || i.contact || '').toLowerCase().includes(query) || 
+                (i.type || '').toLowerCase().includes(query) || 
+                String(i.amount).includes(query)
+            ) : dataInvestors;
+
+            if (listData.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada rincian transaksi modal saham.</td></tr>`;
                 return;
             }
 
-            tbody.innerHTML = dataInvestors.map(item => `
+            tbody.innerHTML = listData.map(item => `
                 <tr class="hover:bg-slate-50">
                     <td class="p-3 text-slate-500">${item.date ? new Date(item.date).toLocaleDateString('id-ID') : '-'}</td>
                     <td class="p-3 font-bold text-slate-800">${escapeHtml(item.name)}</td>
@@ -1687,16 +1787,24 @@
                     </td>
                 </tr>
             `).join('');
-        }
+        };
 
-        function renderTableGH() {
+        window.renderTableGH = function() {
             const tbody = document.getElementById('tableGH');
             if (!tbody) return;
-            if (dataGH.length === 0) {
+
+            const query = (document.getElementById('searchGH')?.value || '').toLowerCase().trim();
+            const listData = query ? dataGH.filter(g => 
+                (g.item || '').toLowerCase().includes(query) || 
+                (g.category || '').toLowerCase().includes(query) || 
+                String(g.cost).includes(query)
+            ) : dataGH;
+
+            if (listData.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-slate-400">Belum ada aset Green House.</td></tr>';
                 return;
             }
-            tbody.innerHTML = dataGH.map(item => `
+            tbody.innerHTML = listData.map(item => `
                 <tr class="hover:bg-slate-50">
                     <td class="p-3 font-bold text-slate-800">${escapeHtml(item.item || '-')}</td>
                     <td class="p-3 text-slate-600">${escapeHtml(item.category || '-')}</td>
@@ -1706,16 +1814,24 @@
                     </td>
                 </tr>
             `).join('');
-        }
+        };
 
-        function renderTableTanaman() {
+        window.renderTableTanaman = function() {
             const tbody = document.getElementById('tableTanaman');
             if (!tbody) return;
-            if (dataTanaman.length === 0) {
+
+            const query = (document.getElementById('searchTanaman')?.value || '').toLowerCase().trim();
+            const listData = query ? dataTanaman.filter(t => 
+                (t.batch || '').toLowerCase().includes(query) || 
+                (t.item || '').toLowerCase().includes(query) || 
+                String(t.cost).includes(query)
+            ) : dataTanaman;
+
+            if (listData.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada modal tanaman.</td></tr>';
                 return;
             }
-            tbody.innerHTML = dataTanaman.map(item => `
+            tbody.innerHTML = listData.map(item => `
                 <tr class="hover:bg-slate-50">
                     <td class="p-3 font-bold text-slate-800">${escapeHtml(item.batch || '-')}</td>
                     <td class="p-3 text-slate-600">${escapeHtml(item.item || '-')}</td>
@@ -1726,16 +1842,24 @@
                     </td>
                 </tr>
             `).join('');
-        }
+        };
 
-        function renderTableMediaBahan() {
+        window.renderTableMediaBahan = function() {
             const tbody = document.getElementById('tableMediaBahan');
             if (!tbody) return;
-            if (dataMediaBahan.length === 0) {
+
+            const query = (document.getElementById('searchMediaBahan')?.value || '').toLowerCase().trim();
+            const listData = query ? dataMediaBahan.filter(m => 
+                (m.item || '').toLowerCase().includes(query) || 
+                (m.category || '').toLowerCase().includes(query) || 
+                String(m.cost).includes(query)
+            ) : dataMediaBahan;
+
+            if (listData.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada data media / bahan.</td></tr>';
                 return;
             }
-            tbody.innerHTML = dataMediaBahan.map(item => `
+            tbody.innerHTML = listData.map(item => `
                 <tr class="hover:bg-slate-50">
                     <td class="p-3 font-bold text-slate-800">${escapeHtml(item.item || '-')}</td>
                     <td class="p-3 text-slate-600">${escapeHtml(item.category || '-')}</td>
@@ -1746,16 +1870,24 @@
                     </td>
                 </tr>
             `).join('');
-        }
+        };
 
-        function renderTablePanen() {
+        window.renderTablePanen = function() {
             const tbody = document.getElementById('tablePanen');
             if (!tbody) return;
-            if (dataPanen.length === 0) {
+
+            const query = (document.getElementById('searchPanen')?.value || '').toLowerCase().trim();
+            const listData = query ? dataPanen.filter(p => 
+                (p.crop || '').toLowerCase().includes(query) || 
+                String(p.qty).includes(query) || 
+                String(p.price).includes(query)
+            ) : dataPanen;
+
+            if (listData.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada catatan hasil panen.</td></tr>';
                 return;
             }
-            tbody.innerHTML = dataPanen.map(item => {
+            tbody.innerHTML = listData.map(item => {
                 const totalVal = (Number(item.qty) || 0) * (Number(item.price) || 0);
                 return `
                     <tr class="hover:bg-slate-50">
@@ -1770,9 +1902,9 @@
                     </tr>
                 `;
             }).join('');
-        }
+        };
 
-        function calculateProfitSharing() {
+        window.calculateProfitSharing = function() {
             const totalPanen = dataPanen.reduce((acc, item) => acc + ((Number(item.qty) || 0) * (Number(item.price) || 0)), 0);
             const totalTanaman = dataTanaman.reduce((acc, item) => acc + (Number(item.cost) || 0), 0);
             const netProfit = Math.max(0, totalPanen - totalTanaman);
@@ -1786,7 +1918,12 @@
 
             const invTotals = calculateInvestorTotals();
             const totalSahamNet = Object.values(invTotals).reduce((acc, inv) => acc + Math.max(0, inv.net), 0);
-            const investorNames = Object.keys(invTotals);
+            let investorNames = Object.keys(invTotals);
+
+            const query = (document.getElementById('searchBagiHasil')?.value || '').toLowerCase().trim();
+            if (query) {
+                investorNames = investorNames.filter(n => n.toLowerCase().includes(query));
+            }
 
             if (investorNames.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Belum ada investor untuk dikalkulasi.</td></tr>`;
@@ -1806,7 +1943,7 @@
                     </tr>
                 `;
             }).join('');
-        }
+        };
 
         window.toggleCustomInvestorInput = function(val) {
             const container = document.getElementById('customNameContainer');
@@ -1827,8 +1964,9 @@
             const category = document.getElementById('cfCategory').value;
             const desc = document.getElementById('cfDesc').value;
             const amount = parseFormattedNumber(document.getElementById('cfAmount').value);
+            const dateVal = getTimestampFromInput('cfDate');
 
-            const record = { type, category, desc, amount, date: Date.now() };
+            const record = { type, category, desc, amount, date: dateVal };
             const tempId = Date.now().toString();
 
             dataCashflow.unshift({ id: tempId, ...record });
@@ -1863,8 +2001,9 @@
             const type = document.getElementById('invType').value;
             const detail = document.getElementById('invDetail').value;
             const amount = parseFormattedNumber(document.getElementById('invAmount').value);
+            const dateVal = getTimestampFromInput('invDate');
 
-            const record = { name, type, detail, amount, date: Date.now() };
+            const record = { name, type, detail, amount, date: dateVal };
             const tempId = Date.now().toString();
 
             dataInvestors.unshift({ id: tempId, ...record });
@@ -1891,7 +2030,8 @@
             const itemName = document.getElementById('dpItemName').value;
             const targetModule = document.getElementById('dpTargetModule').value;
             const amount = parseFormattedNumber(document.getElementById('dpAmount').value);
-            const now = Date.now();
+            const dateVal = getTimestampFromInput('dpDate');
+            const now = dateVal;
 
             if (!amount || amount <= 0) {
                 showToast("Nominal pembelian harus lebih dari 0!", true);
@@ -1981,8 +2121,9 @@
             const item = document.getElementById('ghItem').value;
             const category = document.getElementById('ghCategory').value;
             const cost = parseFormattedNumber(document.getElementById('ghCost').value);
+            const dateVal = getTimestampFromInput('ghDate');
 
-            const record = { item, category, cost, date: Date.now() };
+            const record = { item, category, cost, date: dateVal };
             const tempId = Date.now().toString();
 
             dataGH.unshift({ id: tempId, ...record });
@@ -2006,8 +2147,9 @@
             const batch = document.getElementById('tanBatch').value;
             const item = document.getElementById('tanItem').value;
             const cost = parseFormattedNumber(document.getElementById('tanCost').value);
+            const dateVal = getTimestampFromInput('tanDate');
 
-            const record = { batch, item, cost, date: Date.now() };
+            const record = { batch, item, cost, date: dateVal };
             const tempId = Date.now().toString();
 
             dataTanaman.unshift({ id: tempId, ...record });
@@ -2031,8 +2173,9 @@
             const item = document.getElementById('mbItem').value;
             const category = document.getElementById('mbCategory').value;
             const cost = parseFormattedNumber(document.getElementById('mbCost').value);
+            const dateVal = getTimestampFromInput('mbDate');
 
-            const record = { item, category, cost, date: Date.now() };
+            const record = { item, category, cost, date: dateVal };
             const tempId = Date.now().toString();
 
             dataMediaBahan.unshift({ id: tempId, ...record });
@@ -2056,8 +2199,9 @@
             const crop = document.getElementById('panCrop').value;
             const qty = parseFormattedNumber(document.getElementById('panQty').value);
             const price = parseFormattedNumber(document.getElementById('panPrice').value);
+            const dateVal = getTimestampFromInput('panDate');
 
-            const record = { crop, qty, price, date: Date.now() };
+            const record = { crop, qty, price, date: dateVal };
             const tempId = Date.now().toString();
 
             dataPanen.unshift({ id: tempId, ...record });
