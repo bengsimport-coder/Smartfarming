@@ -2094,3 +2094,12 @@
                 showToast("Gagal menghapus data: " + (error.message || "Error jaringan"), true);
             }
         };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initFirebase();
+            window.switchTab('dashboard');
+            window.updateRoleVisibility();
+        });
+    </script>
+</body>
+</html>
