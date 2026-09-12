@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Farming - Manajemen & Investor Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <!-- Navigation Bar -->
+    <header class="bg-agri-800 text-white shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Brand -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-agri-500 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-agri-900/30">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg leading-none tracking-wide">Smart Farming</h1>
+                        <span class="text-xs text-agri-200">Greenhouse & Investor Hub</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden lg:flex items-center space-x-1">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3 py-2 rounded-lg text-xs font-semibold transition-all bg-agri-700 text-white">
+                        <i class="fa-solid fa-chart-line mr-1.5"></i>Beranda
+                    </button>
+                    <button onclick="switchTab('aruskas')" id="nav-aruskas" class="px-3 py-2 rounded-lg text-xs font-semibold text-agri-100 hover:bg-agri-700 transition-all">
+                        <i class="fa-solid fa-wallet mr-1.5"></i>Arus Kas
+                    </button>
+                    <button onclick="switchTab('modalsaham')" id="nav-modalsaham" class="px-3 py-2 rounded-lg text-xs font-semibold text-agri-100 hover:bg-agri-700 transition-all">
+                        <i class="fa-solid fa-user-tie mr-1.5"></i>Modal Saham
+                    </button>
+                    <button onclick="switchTab('greenhouse')" id="nav-greenhouse" class="px-3 py-2 rounded-lg text-xs font-semibold text-agri-100 hover:bg-agri-700 transition-all">
+                        <i class="fa-solid fa-warehouse mr-1.5"></i>Modal Green House
+                    </button>
+                    <button onclick="switchTab('modaltanaman')" id="nav-modaltanaman" class="px-3 py-2 rounded-lg text-xs font-semibold text-agri-100 hover:bg-agri-700 transition-all">
+                        <i class="fa-solid fa-plant-wilt mr-1.5"></i>Modal Tanaman
+                    </button>
+                    <button onclick="switchTab('hasilpanen')" id="nav-hasilpanen" class="px-3 py-2 rounded-lg text-xs font-semibold text-agri-100 hover:bg-agri-700 transition-all">
+                        <i class="fa-solid fa-wheat-awn mr-1.5"></i>Hasil Panen
+                    </button>
+                    <button onclick="switchTab('bagihasil')" id="nav-bagihasil" class="px-3 py-2 rounded-lg text-xs font-semibold text-agri-100 hover:bg-agri-700 transition-all">
+                        <i class="fa-solid fa-hand-holding-dollar mr-1.5"></i>Bagi Hasil
+                    </button>
+                </nav>
+
+                <!-- Controls & DB Status -->
+                <div class="flex items-center gap-3">
+                    <div class="relative inline-block text-left">
+                        <select id="roleSelector" onchange="changeRole(this.value)" class="bg-agri-900 border border-agri-700 text-xs text-agri-100 rounded-lg px-2.5 py-1.5 focus:outline-none cursor-pointer">
+                            <option value="admin" selected>👑 Admin Pengelola</option>
+                            <option value="investor">💼 Investor Saham</option>
+                            <option value="manajer">🌾 Manajer Kebun</option>
+                        </select>
+                    </div>
+
+                    <div id="dbStatusBadge" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-emerald-900/80 text-emerald-200 border border-emerald-500/30">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span id="dbStatusText">Firebase Connected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Scrollable Bar -->
+        <div class="lg:hidden flex overflow-x-auto space-x-2 px-4 py-2 bg-agri-900 text-xs custom-scrollbar whitespace-nowrap">
+            <button onclick="switchTab('dashboard')" class="px-3 py-1 bg-agri-800 rounded-md text-white">Beranda</button>
+            <button onclick="switchTab('aruskas')" class="px-3 py-1 bg-agri-800 rounded-md text-white">Arus Kas</button>
+            <button onclick="switchTab('modalsaham')" class="px-3 py-1 bg-agri-800 rounded-md text-white">Modal Saham</button>
+            <button onclick="switchTab('greenhouse')" class="px-3 py-1 bg-agri-800 rounded-md text-white">Green House</button>
+            <button onclick="switchTab('modaltanaman')" class="px-3 py-1 bg-agri-800 rounded-md text-white">Modal Tanaman</button>
+            <button onclick="switchTab('hasilpanen')" class="px-3 py-1 bg-agri-800 rounded-md text-white">Hasil Panen</button>
+            <button onclick="switchTab('bagihasil')" class="px-3 py-1 bg-agri-800 rounded-md text-white">Bagi Hasil</button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- Notification Toast Box -->
+        <div id="toastBox" class="hidden fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl bg-slate-900 text-white shadow-2xl flex items-center gap-3 border border-slate-700 text-sm">
+            <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+            <span id="toastMsg">Pesan Notifikasi</span>
+        </div>
+
+        <!-- Banner Ringkasan -->
+        <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-agri-700 to-emerald-800 text-white shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-3 bg-white/10 rounded-xl backdrop-blur-sm">
+                    <i class="fa-solid fa-chart-pie text-2xl text-agri-200"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-base sm:text-lg">Dashboard Finansial & Operasional</h3>
+                    <p class="text-xs text-agri-100">Sistem terintegrasi real-time modal investor, greenhouse, tanaman, hingga pembagian deviden.</p>
+                </div>
+            </div>
+            <span id="roleBadge" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white backdrop-blur-sm border border-white/20">
+                Mode: Admin Pengelola
+            </span>
+        </div>
+
+        <!-- TAB 1: DASHBOARD OVERVIEW -->
+        <section id="tab-dashboard" class="space-y-6">
+            <!-- Summary Metric Cards Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <p class="text-[11px] text-slate-500 font-semibold uppercase">Modal Saham</p>
+                    <h4 id="statModalSaham" class="text-base sm:text-lg font-bold text-agri-700 mt-1">Rp 0</h4>
+                    <span class="text-[10px] text-slate-400">Total Saham Masuk</span>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <p class="text-[11px] text-slate-500 font-semibold uppercase">Modal Green House</p>
+                    <h4 id="statModalGH" class="text-base sm:text-lg font-bold text-blue-600 mt-1">Rp 0</h4>
+                    <span class="text-[10px] text-slate-400">Infrastruktur & Alat</span>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <p class="text-[11px] text-slate-500 font-semibold uppercase">Modal Tanaman</p>
+                    <h4 id="statModalTanaman" class="text-base sm:text-lg font-bold text-amber-600 mt-1">Rp 0</h4>
+                    <span class="text-[10px] text-slate-400">Bibit & Nutrisi</span>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <p class="text-[11px] text-slate-500 font-semibold uppercase">Total Penjualan</p>
+                    <h4 id="statTotalPanen" class="text-base sm:text-lg font-bold text-emerald-600 mt-1">Rp 0</h4>
+                    <span class="text-[10px] text-slate-400">Pendapatan Panen</span>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <p class="text-[11px] text-slate-500 font-semibold uppercase">Saldo Kas</p>
+                    <h4 id="statSaldoKas" class="text-base sm:text-lg font-bold text-indigo-600 mt-1">Rp 0</h4>
+                    <span class="text-[10px] text-slate-400">Pemasukan - Pengeluaran</span>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <p class="text-[11px] text-slate-500 font-semibold uppercase">Siap Bagi Hasil</p>
+                    <h4 id="statLabaBagiHasil" class="text-base sm:text-lg font-bold text-purple-600 mt-1">Rp 0</h4>
+                    <span class="text-[10px] text-slate-400">Laba Bersih Panen</span>
+                </div>
+            </div>
+
+            <!-- Dashboard Tables Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Recent Cash Flow -->
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-agri-600"></i> Transaksi Arus Kas Terbaru
+                        </h3>
+                        <button onclick="switchTab('aruskas')" class="text-xs text-agri-600 font-semibold hover:underline">Lihat Semua</button>
+                    </div>
+                    <div id="dashCashflowList" class="space-y-2 text-xs">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Investor Saham Summary -->
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-users text-blue-600"></i> Pemegang Saham Utama
+                        </h3>
+                        <button onclick="switchTab('modalsaham')" class="text-xs text-agri-600 font-semibold hover:underline">Kelola Saham</button>
+                    </div>
+                    <div id="dashInvestorList" class="space-y-2 text-xs">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: ARUS KAS (CASH FLOW) -->
+        <section id="tab-aruskas" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800">Manajemen Arus Kas (Cash Flow)</h2>
+                    <p class="text-xs text-slate-500">Catat seluruh dana masuk dan dana keluar operasional Smart Farming.</p>
+                </div>
+                <button onclick="openModal('modalCashflow')" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Tambah Transaksi Kas
+                </button>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">
+                            <tr>
+                                <th class="p-3">Tanggal</th>
+                                <th class="p-3">Tipe</th>
+                                <th class="p-3">Kategori</th>
+                                <th class="p-3">Keterangan</th>
+                                <th class="p-3 text-right">Jumlah (Rp)</th>
+                                <th class="p-3 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableCashflow" class="divide-y divide-slate-100">
+                            <!-- Loaded Dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: MODAL SAHAM (INVESTOR SHARES) -->
+        <section id="tab-modalsaham" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800">Modal Saham & Data Investor</h2>
+                    <p class="text-xs text-slate-500">Daftar pemilik modal saham proyek Smart Farming beserta persentase kepemilikan.</p>
+                </div>
+                <button onclick="openModal('modalInvestor')" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus"></i> Tambah Investor / Saham
+                </button>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">
+                            <tr>
+                                <th class="p-3">Nama Investor</th>
+                                <th class="p-3">Kontak / Email</th>
+                                <th class="p-3 text-right">Setoran Modal (Rp)</th>
+                                <th class="p-3 text-right">Porsi Saham (%)</th>
+                                <th class="p-3 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableInvestor" class="divide-y divide-slate-100">
+                            <!-- Loaded Dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: MODAL GREEN HOUSE -->
+        <section id="tab-greenhouse" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800">Modal Infrastructure Green House</h2>
+                    <p class="text-xs text-slate-500">Pencatatan investasi aset fisik: Rangka, UV Plastic, Irigasi Tetes, Sensor IoT & Automation.</p>
+                </div>
+                <button onclick="openModal('modalGH')" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Catat Aset / Pengeluaran GH
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-2 bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">
+                                <tr>
+                                    <th class="p-3">Nama Item Aset</th>
+                                    <th class="p-3">Kategori</th>
+                                    <th class="p-3 text-right">Biaya (Rp)</th>
+                                    <th class="p-3 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableGH" class="divide-y divide-slate-100">
+                                <!-- Loaded Dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="font-bold text-slate-800 text-sm">Spesifikasi Green House</h3>
+                    <div class="text-xs space-y-2 text-slate-600">
+                        <div class="flex justify-between border-b pb-1">
+                            <span>Tipe Konstruksi:</span>
+                            <span class="font-semibold text-slate-800">Baja Ringan & Plastik UV 200 Micron</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span>Sistem Irigasi:</span>
+                            <span class="font-semibold text-slate-800">Drip Fertigasi Otomatis</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span>Kapasitas Tanam:</span>
+                            <span class="font-semibold text-slate-800">2.500 Lubang Tanam</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: MODAL TANAMAN -->
+        <section id="tab-modaltanaman" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800">Modal Operasional Tanaman (Batch Tanam)</h2>
+                    <p class="text-xs text-slate-500">Biaya benih, nutrisi AB Mix, rockwool, pestisida organik, & tenaga kerja operasional.</p>
+                </div>
+                <button onclick="openModal('modalTanaman')" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Catat Modal Tanaman
+                </button>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">
+                            <tr>
+                                <th class="p-3">Batch / Komoditas</th>
+                                <th class="p-3">Kebutuhan</th>
+                                <th class="p-3">Tanggal Input</th>
+                                <th class="p-3 text-right">Biaya (Rp)</th>
+                                <th class="p-3 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableTanaman" class="divide-y divide-slate-100">
+                            <!-- Loaded Dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: HASIL PANEN -->
+        <section id="tab-hasilpanen" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800">Hasil Panen & Penjualan</h2>
+                    <p class="text-xs text-slate-500">Catat jumlah volume panen (kg) dan total nilai penjualan komoditas.</p>
+                </div>
+                <button onclick="openModal('modalPanen')" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Catat Hasil Panen Baru
+                </button>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">
+                            <tr>
+                                <th class="p-3">Tanggal Panen</th>
+                                <th class="p-3">Komoditas</th>
+                                <th class="p-3 text-right">Volume (Kg)</th>
+                                <th class="p-3 text-right">Harga / Kg (Rp)</th>
+                                <th class="p-3 text-right">Total Pendapatan (Rp)</th>
+                                <th class="p-3 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablePanen" class="divide-y divide-slate-100">
+                            <!-- Loaded Dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: BAGI HASIL INVESTOR -->
+        <section id="tab-bagihasil" class="space-y-6 hidden">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Kalkulasi Bagi Hasil Investor (Dividen)</h2>
+                        <p class="text-xs text-slate-500">Kalkulasi pembagian keuntungan hasil panen secara proporsional sesuai porsi saham investor.</p>
+                    </div>
+                    <button onclick="calculateProfitSharing()" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-calculator"></i> Hitung Ulang Dividen
+                    </button>
+                </div>
+
+                <!-- Simulation Breakdown Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <span class="text-xs text-slate-500 font-medium">Total Pendapatan Panen</span>
+                        <h4 id="calcGrossRevenue" class="text-lg font-bold text-emerald-600 mt-1">Rp 0</h4>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <span class="text-xs text-slate-500 font-medium">Total Modal Tanaman (Pengurang)</span>
+                        <h4 id="calcCropCosts" class="text-lg font-bold text-red-600 mt-1">Rp 0</h4>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <span class="text-xs text-slate-500 font-medium">Laba Bersih Siap Bagikan</span>
+                        <h4 id="calcNetProfit" class="text-lg font-bold text-purple-700 mt-1">Rp 0</h4>
+                    </div>
+                </div>
+
+                <h3 class="font-bold text-slate-800 text-sm pt-2">Rincian Pembagian Per Investor</h3>
+                <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">
+                                <tr>
+                                    <th class="p-3">Nama Investor</th>
+                                    <th class="p-3 text-right">Modal Ditanam</th>
+                                    <th class="p-3 text-right">Porsi Saham (%)</th>
+                                    <th class="p-3 text-right">Estimasi Bagi Hasil (Rp)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBagiHasil" class="divide-y divide-slate-100">
+                                <!-- Loaded Dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL 1: Tambah Transaksi Kas -->
+    <div id="modalCashflow" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base">Tambah Transaksi Arus Kas</h3>
+                <button onclick="closeModal('modalCashflow')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleSaveCashflow(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tipe Transaksi</label>
+                    <select id="cfType" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                        <option value="masuk">Kas Masuk (Pemasukan / Setoran)</option>
+                        <option value="keluar">Kas Keluar (Pengeluaran)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Kategori</label>
+                    <input type="text" id="cfCategory" required placeholder="Contoh: Setoran Saham / Pembelian Nutrisi" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Keterangan</label>
+                    <input type="text" id="cfDesc" required placeholder="Detail rincian transaksi..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Jumlah Nominal (Rp)</label>
+                    <input type="number" id="cfAmount" required placeholder="5000000" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('modalCashflow')" class="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg text-xs font-semibold">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-semibold">Simpan Kas</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Tambah Investor Saham -->
+    <div id="modalInvestor" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base">Tambah Pemegang Saham / Investor</h3>
+                <button onclick="closeModal('modalInvestor')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleSaveInvestor(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Investor</label>
+                    <input type="text" id="invName" required placeholder="Nama Lengkap / Instansi" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Kontak / Telepon</label>
+                    <input type="text" id="invContact" required placeholder="08123456789" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nilai Setoran Saham (Rp)</label>
+                    <input type="number" id="invAmount" required placeholder="25000000" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('modalInvestor')" class="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg text-xs font-semibold">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-semibold">Simpan Investor</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Tambah Modal Green House -->
+    <div id="modalGH" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base">Tambah Modal Green House</h3>
+                <button onclick="closeModal('modalGH')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleSaveGH(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Item / Aset</label>
+                    <input type="text" id="ghItem" required placeholder="Rangka Baja / Plastik UV / Pompa" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Kategori</label>
+                    <select id="ghCategory" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                        <option value="Konstruksi Bangunan">Konstruksi Bangunan</option>
+                        <option value="Sistem Irigasi & Pompa">Sistem Irigasi & Pompa</option>
+                        <option value="Otomatisasi IoT & Sensor">Otomatisasi IoT & Sensor</option>
+                        <option value="Meja Hydroponic & Gutter">Meja Hydroponic & Gutter</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Total Biaya (Rp)</label>
+                    <input type="number" id="ghCost" required placeholder="15000000" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('modalGH')" class="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg text-xs font-semibold">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-semibold">Simpan Asset GH</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: Tambah Modal Tanaman -->
+    <div id="modalTanaman" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base">Tambah Modal Tanaman</h3>
+                <button onclick="closeModal('modalTanaman')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleSaveTanaman(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Batch / Jenis Tanaman</label>
+                    <input type="text" id="tanBatch" required placeholder="Melon Hydroponic Batch 1 / Melon Intanon" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Kebutuhan Biaya</label>
+                    <input type="text" id="tanItem" required placeholder="Benih Import & Nutrisi AB Mix" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nominal Biaya (Rp)</label>
+                    <input type="number" id="tanCost" required placeholder="3500000" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('modalTanaman')" class="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg text-xs font-semibold">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-semibold">Simpan Modal Tanaman</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 5: Tambah Hasil Panen -->
+    <div id="modalPanen" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base">Tambah Hasil Panen</h3>
+                <button onclick="closeModal('modalPanen')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleSavePanen(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Komoditas / Batch Panen</label>
+                    <input type="text" id="panCrop" required placeholder="Melon Premium Intanon - Batch 1" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Volume Panen (Kg)</label>
+                        <input type="number" id="panQty" required placeholder="800" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Harga per Kg (Rp)</label>
+                        <input type="number" id="panPrice" required placeholder="35000" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-agri-500">
+                    </div>
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('modalPanen')" class="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg text-xs font-semibold">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-xs font-semibold">Simpan Penjualan Panen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        /* Permanent Firebase configuration from user project */
+        const MY_FIREBASE_CONFIG = {
+            apiKey: "AIzaSyD1EZFx0n4frQYCMyQQn94ohPigwMtc9qs",
+            authDomain: "smartfarmingapp-7be86.firebaseapp.com",
+            projectId: "smartfarmingapp-7be86",
+            storageBucket: "smartfarmingapp-7be86.firebasestorage.app",
+            messagingSenderId: "343210236000",
+            appId: "1:343210236000:web:9438f6684e92162efe0b05",
+            measurementId: "G-H19PMD4Y6E"
+        };
+
+        /* State management */
+        let db = null;
+        let auth = null;
+        let currentRole = 'admin';
+
+        let dataCashflow = [];
+        let dataInvestors = [];
+        let dataGH = [];
+        let dataTanaman = [];
+        let dataPanen = [];
+
+        async function initFirebase() {
+            try {
+                const app = initializeApp(MY_FIREBASE_CONFIG);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                await signInAnonymously(auth);
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        updateDbStatus(true, "Firebase Connected");
+                        setupFirestoreListeners();
+                    }
+                });
+            } catch (error) {
+                console.warn("Firebase Init Fallback:", error);
+                updateDbStatus(false, "Mode Standalone (Offline)");
+                loadSampleData();
+            }
+        }
+
+        function updateDbStatus(isOnline, text) {
+            const badge = document.getElementById('dbStatusBadge');
+            const statusTxt = document.getElementById('dbStatusText');
+            if (badge && statusTxt) {
+                badge.classList.remove('hidden');
+                statusTxt.textContent = text;
+            }
+        }
+
+        function setupFirestoreListeners() {
+            if (!db) return;
+
+            // 1. Arus Kas Listener
+            onSnapshot(collection(db, "aruskas"), (snapshot) => {
+                dataCashflow = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderAll();
+            }, (err) => console.error("ArusKas err:", err));
+
+            // 2. Investor Listener
+            onSnapshot(collection(db, "investors"), (snapshot) => {
+                dataInvestors = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderAll();
+            }, (err) => console.error("Investor err:", err));
+
+            // 3. Green House Listener
+            onSnapshot(collection(db, "greenhouse"), (snapshot) => {
+                dataGH = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderAll();
+            }, (err) => console.error("GH err:", err));
+
+            // 4. Tanaman Listener
+            onSnapshot(collection(db, "modaltanaman"), (snapshot) => {
+                dataTanaman = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderAll();
+            }, (err) => console.error("Tanaman err:", err));
+
+            // 5. Hasil Panen Listener
+            onSnapshot(collection(db, "hasilpanen"), (snapshot) => {
+                dataPanen = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderAll();
+            }, (err) => console.error("Panen err:", err));
+        }
+
+        function loadSampleData() {
+            dataInvestors = [
+                { id: '1', name: 'H. Ahmad Subardjo', contact: '081299887766', amount: 50000000 },
+                { id: '2', name: 'PT Agro Mitra Jaya', contact: '081122334455', amount: 50000000 }
+            ];
+            dataGH = [
+                { id: '1', item: 'Struktur Rangka & Plastik UV', category: 'Konstruksi Bangunan', cost: 45000000 },
+                { id: '2', item: 'Sistem Fertigasi & Sensor Drip', category: 'Sistem Irigasi & Pompa', cost: 20000000 }
+            ];
+            dataTanaman = [
+                { id: '1', batch: 'Melon Intanon Batch 1', item: 'Nutrisi AB Mix 500L & Seedling', cost: 6000000, date: Date.now() }
+            ];
+            dataPanen = [
+                { id: '1', crop: 'Melon Intanon Batch 1', qty: 950, price: 35000, date: Date.now() }
+            ];
+            dataCashflow = [
+                { id: '1', type: 'masuk', category: 'Setoran Modal Saham', desc: 'Injeksi modal investor 1 & 2', amount: 100000000, date: Date.now() },
+                { id: '2', type: 'keluar', category: 'Modal GH', desc: 'Pembangunan Konstruksi', amount: 65000000, date: Date.now() }
+            ];
+            renderAll();
+        }
+
+        function renderAll() {
+            renderDashboardSummary();
+            renderTableCashflow();
+            renderTableInvestors();
+            renderTableGH();
+            renderTableTanaman();
+            renderTablePanen();
+            calculateProfitSharing();
+        }
+
+        function formatRp(num) {
+            return 'Rp ' + (Number(num) || 0).toLocaleString('id-ID');
+        }
+
+        function renderDashboardSummary() {
+            const totalSaham = dataInvestors.reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
+            const totalGH = dataGH.reduce((acc, item) => acc + (Number(item.cost) || 0), 0);
+            const totalTanaman = dataTanaman.reduce((acc, item) => acc + (Number(item.cost) || 0), 0);
+            const totalPanen = dataPanen.reduce((acc, item) => acc + ((Number(item.qty) || 0) * (Number(item.price) || 0)), 0);
+
+            const kasMasuk = dataCashflow.filter(c => c.type === 'masuk').reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
+            const kasKeluar = dataCashflow.filter(c => c.type === 'keluar').reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
+            const saldoKas = kasMasuk - kasKeluar;
+
+            const labaBagiHasil = Math.max(0, totalPanen - totalTanaman);
+
+            document.getElementById('statModalSaham').textContent = formatRp(totalSaham);
+            document.getElementById('statModalGH').textContent = formatRp(totalGH);
+            document.getElementById('statModalTanaman').textContent = formatRp(totalTanaman);
+            document.getElementById('statTotalPanen').textContent = formatRp(totalPanen);
+            document.getElementById('statSaldoKas').textContent = formatRp(saldoKas);
+            document.getElementById('statLabaBagiHasil').textContent = formatRp(labaBagiHasil);
+
+            // Dash Recent Lists
+            const dashCash = document.getElementById('dashCashflowList');
+            if (dashCash) {
+                if (dataCashflow.length === 0) {
+                    dashCash.innerHTML = '<p class="text-slate-400">Belum ada transaksi kas.</p>';
+                } else {
+                    dashCash.innerHTML = dataCashflow.slice(0, 4).map(c => `
+                        <div class="p-2 rounded bg-slate-50 border border-slate-100 flex justify-between items-center">
+                            <div>
+                                <span class="font-bold text-slate-800">${escapeHtml(c.category)}</span>
+                                <p class="text-[10px] text-slate-400">${escapeHtml(c.desc)}</p>
+                            </div>
+                            <span class="font-bold ${c.type === 'masuk' ? 'text-emerald-600' : 'text-red-500'}">
+                                ${c.type === 'masuk' ? '+' : '-'} ${formatRp(c.amount)}
+                            </span>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            const dashInv = document.getElementById('dashInvestorList');
+            if (dashInv) {
+                if (dataInvestors.length === 0) {
+                    dashInv.innerHTML = '<p class="text-slate-400">Belum ada investor terdaftar.</p>';
+                } else {
+                    dashInv.innerHTML = dataInvestors.slice(0, 4).map(inv => {
+                        const pct = totalSaham > 0 ? ((inv.amount / totalSaham) * 100).toFixed(1) : 0;
+                        return `
+                            <div class="p-2 rounded bg-slate-50 border border-slate-100 flex justify-between items-center">
+                                <div>
+                                    <span class="font-bold text-slate-800">${escapeHtml(inv.name)}</span>
+                                    <p class="text-[10px] text-slate-400">Setoran: ${formatRp(inv.amount)}</p>
+                                </div>
+                                <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold">${pct}% Saham</span>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
+        }
+
+        function renderTableCashflow() {
+            const tbody = document.getElementById('tableCashflow');
+            if (!tbody) return;
+            if (dataCashflow.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada catatan arus kas.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = dataCashflow.map(item => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-3 text-slate-500">${item.date ? new Date(item.date).toLocaleDateString('id-ID') : '-'}</td>
+                    <td class="p-3 font-semibold">
+                        <span class="px-2 py-0.5 rounded text-[10px] uppercase ${item.type === 'masuk' ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
+                            Kas ${item.type}
+                        </span>
+                    </td>
+                    <td class="p-3 font-medium text-slate-800">${escapeHtml(item.category)}</td>
+                    <td class="p-3 text-slate-600">${escapeHtml(item.desc)}</td>
+                    <td class="p-3 text-right font-bold ${item.type === 'masuk' ? 'text-emerald-600' : 'text-slate-800'}">${formatRp(item.amount)}</td>
+                    <td class="p-3 text-center">
+                        <button onclick="window.deleteRecord('aruskas', '${item.id}')" class="text-red-400 hover:text-red-600"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderTableInvestors() {
+            const tbody = document.getElementById('tableInvestor');
+            if (!tbody) return;
+            const totalSaham = dataInvestors.reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
+            if (dataInvestors.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada data pemegang saham.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = dataInvestors.map(item => {
+                const pct = totalSaham > 0 ? ((item.amount / totalSaham) * 100).toFixed(2) : '0.00';
+                return `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 font-bold text-slate-800">${escapeHtml(item.name)}</td>
+                        <td class="p-3 text-slate-500">${escapeHtml(item.contact)}</td>
+                        <td class="p-3 text-right font-bold text-agri-700">${formatRp(item.amount)}</td>
+                        <td class="p-3 text-right font-bold text-blue-600">${pct}%</td>
+                        <td class="p-3 text-center">
+                            <button onclick="window.deleteRecord('investors', '${item.id}')" class="text-red-400 hover:text-red-600"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderTableGH() {
+            const tbody = document.getElementById('tableGH');
+            if (!tbody) return;
+            if (dataGH.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Belum ada aset Green House.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = dataGH.map(item => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-bold text-slate-800">${escapeHtml(item.item)}</td>
+                    <td class="p-3 text-slate-500">${escapeHtml(item.category)}</td>
+                    <td class="p-3 text-right font-bold text-blue-600">${formatRp(item.cost)}</td>
+                    <td class="p-3 text-center">
+                        <button onclick="window.deleteRecord('greenhouse', '${item.id}')" class="text-red-400 hover:text-red-600"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderTableTanaman() {
+            const tbody = document.getElementById('tableTanaman');
+            if (!tbody) return;
+            if (dataTanaman.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada data modal tanaman.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = dataTanaman.map(item => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-bold text-slate-800">${escapeHtml(item.batch)}</td>
+                    <td class="p-3 text-slate-600">${escapeHtml(item.item)}</td>
+                    <td class="p-3 text-slate-400">${item.date ? new Date(item.date).toLocaleDateString('id-ID') : '-'}</td>
+                    <td class="p-3 text-right font-bold text-amber-600">${formatRp(item.cost)}</td>
+                    <td class="p-3 text-center">
+                        <button onclick="window.deleteRecord('modaltanaman', '${item.id}')" class="text-red-400 hover:text-red-600"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderTablePanen() {
+            const tbody = document.getElementById('tablePanen');
+            if (!tbody) return;
+            if (dataPanen.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada catatan panen.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = dataPanen.map(item => {
+                const total = (Number(item.qty) || 0) * (Number(item.price) || 0);
+                return `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 text-slate-500">${item.date ? new Date(item.date).toLocaleDateString('id-ID') : '-'}</td>
+                        <td class="p-3 font-bold text-slate-800">${escapeHtml(item.crop)}</td>
+                        <td class="p-3 text-right font-semibold">${item.qty} Kg</td>
+                        <td class="p-3 text-right text-slate-600">${formatRp(item.price)}</td>
+                        <td class="p-3 text-right font-bold text-emerald-600">${formatRp(total)}</td>
+                        <td class="p-3 text-center">
+                            <button onclick="window.deleteRecord('hasilpanen', '${item.id}')" class="text-red-400 hover:text-red-600"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        window.calculateProfitSharing = function() {
+            const totalPanen = dataPanen.reduce((acc, item) => acc + ((Number(item.qty) || 0) * (Number(item.price) || 0)), 0);
+            const totalTanaman = dataTanaman.reduce((acc, item) => acc + (Number(item.cost) || 0), 0);
+            const netProfit = Math.max(0, totalPanen - totalTanaman);
+
+            document.getElementById('calcGrossRevenue').textContent = formatRp(totalPanen);
+            document.getElementById('calcCropCosts').textContent = formatRp(totalTanaman);
+            document.getElementById('calcNetProfit').textContent = formatRp(netProfit);
+
+            const tbody = document.getElementById('tableBagiHasil');
+            if (!tbody) return;
+
+            const totalSaham = dataInvestors.reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
+
+            if (dataInvestors.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Belum ada investor untuk dikalkulasi.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = dataInvestors.map(inv => {
+                const sharePct = totalSaham > 0 ? (inv.amount / totalSaham) : 0;
+                const estimatedDividend = netProfit * sharePct;
+                return `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 font-bold text-slate-800">${escapeHtml(inv.name)}</td>
+                        <td class="p-3 text-right font-semibold text-slate-600">${formatRp(inv.amount)}</td>
+                        <td class="p-3 text-right font-bold text-blue-600">${(sharePct * 100).toFixed(2)}%</td>
+                        <td class="p-3 text-right font-bold text-purple-700">${formatRp(estimatedDividend)}</td>
+                    </tr>
+                `;
+            }).join('');
+        };
+
+        function escapeHtml(str) {
+            return String(str || '').replace(/[&<>"']/g, function(m) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+            });
+        }
+
+        /* Navigation Switcher */
+        window.switchTab = function(tabName) {
+            const tabs = ['dashboard', 'aruskas', 'modalsaham', 'greenhouse', 'modaltanaman', 'hasilpanen', 'bagihasil'];
+            tabs.forEach(tab => {
+                const el = document.getElementById('tab-' + tab);
+                const nav = document.getElementById('nav-' + tab);
+                if (el) el.classList.add('hidden');
+                if (nav) {
+                    nav.classList.remove('bg-agri-700', 'text-white');
+                    nav.classList.add('text-agri-100');
+                }
+            });
+
+            const activeTab = document.getElementById('tab-' + tabName);
+            const activeNav = document.getElementById('nav-' + tabName);
+            if (activeTab) activeTab.classList.remove('hidden');
+            if (activeNav) {
+                activeNav.classList.add('bg-agri-700', 'text-white');
+                activeNav.classList.remove('text-agri-100');
+            }
+        };
+
+        window.changeRole = function(role) {
+            currentRole = role;
+            const badge = document.getElementById('roleBadge');
+            const roleNames = { admin: 'Admin Pengelola', investor: 'Investor Saham', manajer: 'Manajer Kebun' };
+            if (badge) badge.textContent = `Mode: ${roleNames[role] || role}`;
+            showToast(`Beralih ke tampilan ${roleNames[role]}`);
+        };
+
+        window.openModal = function(id) {
+            document.getElementById(id).classList.remove('hidden');
+        };
+
+        window.closeModal = function(id) {
+            document.getElementById(id).classList.add('hidden');
+        };
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastBox');
+            const toastMsg = document.getElementById('toastMsg');
+            if (toast && toastMsg) {
+                toastMsg.textContent = msg;
+                toast.classList.remove('hidden');
+                setTimeout(() => toast.classList.add('hidden'), 3000);
+            }
+        }
+
+        /* Forms Submit Handlers */
+        window.handleSaveCashflow = async function(e) {
+            e.preventDefault();
+            const type = document.getElementById('cfType').value;
+            const category = document.getElementById('cfCategory').value;
+            const desc = document.getElementById('cfDesc').value;
+            const amount = Number(document.getElementById('cfAmount').value);
+
+            const record = { type, category, desc, amount, date: Date.now() };
+
+            if (db) {
+                await addDoc(collection(db, "aruskas"), record);
+            } else {
+                dataCashflow.unshift({ id: Date.now().toString(), ...record });
+                renderAll();
+            }
+            showToast("Transaksi Kas berhasil disimpan!");
+            closeModal('modalCashflow');
+        };
+
+        window.handleSaveInvestor = async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('invName').value;
+            const contact = document.getElementById('invContact').value;
+            const amount = Number(document.getElementById('invAmount').value);
+
+            const record = { name, contact, amount, date: Date.now() };
+
+            if (db) {
+                await addDoc(collection(db, "investors"), record);
+            } else {
+                dataInvestors.unshift({ id: Date.now().toString(), ...record });
+                renderAll();
+            }
+            showToast("Investor Saham berhasil ditambahkan!");
+            closeModal('modalInvestor');
+        };
+
+        window.handleSaveGH = async function(e) {
+            e.preventDefault();
+            const item = document.getElementById('ghItem').value;
+            const category = document.getElementById('ghCategory').value;
+            const cost = Number(document.getElementById('ghCost').value);
+
+            const record = { item, category, cost, date: Date.now() };
+
+            if (db) {
+                await addDoc(collection(db, "greenhouse"), record);
+            } else {
+                dataGH.unshift({ id: Date.now().toString(), ...record });
+                renderAll();
+            }
+            showToast("Modal Green House tersimpan!");
+            closeModal('modalGH');
+        };
+
+        window.handleSaveTanaman = async function(e) {
+            e.preventDefault();
+            const batch = document.getElementById('tanBatch').value;
+            const item = document.getElementById('tanItem').value;
+            const cost = Number(document.getElementById('tanCost').value);
+
+            const record = { batch, item, cost, date: Date.now() };
+
+            if (db) {
+                await addDoc(collection(db, "modaltanaman"), record);
+            } else {
+                dataTanaman.unshift({ id: Date.now().toString(), ...record });
+                renderAll();
+            }
+            showToast("Modal Tanaman tersimpan!");
+            closeModal('modalTanaman');
+        };
+
+        window.handleSavePanen = async function(e) {
+            e.preventDefault();
+            const crop = document.getElementById('panCrop').value;
+            const qty = Number(document.getElementById('panQty').value);
+            const price = Number(document.getElementById('panPrice').value);
+
+            const record = { crop, qty, price, date: Date.now() };
+
+            if (db) {
+                await addDoc(collection(db, "hasilpanen"), record);
+            } else {
+                dataPanen.unshift({ id: Date.now().toString(), ...record });
+                renderAll();
+            }
+            showToast("Data Hasil Panen tersimpan!");
+            closeModal('modalPanen');
+        };
+
+        window.deleteRecord = async function(collName, id) {
+            if (db) {
+                await deleteDoc(doc(db, collName, id));
+            } else {
+                if (collName === 'aruskas') dataCashflow = dataCashflow.filter(x => x.id !== id);
+                if (collName === 'investors') dataInvestors = dataInvestors.filter(x => x.id !== id);
+                if (collName === 'greenhouse') dataGH = dataGH.filter(x => x.id !== id);
+                if (collName === 'modaltanaman') dataTanaman = dataTanaman.filter(x => x.id !== id);
+                if (collName === 'hasilpanen') dataPanen = dataPanen.filter(x => x.id !== id);
+                renderAll();
+            }
+            showToast("Data berhasil dihapus.");
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initFirebase();
+        });
+    </script>
+</body>
+</html>
