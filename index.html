@@ -636,10 +636,6 @@
                     <input type="text" id="cfDesc" required placeholder="Contoh: Beli Pupuk AB Mix" class="w-full px-3 py-2 border rounded-xl text-xs">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Transaksi <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
-                    <input type="date" id="cfDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
-                </div>
-                <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Nominal (Rp)</label>
                     <input type="text" inputmode="numeric" id="cfAmount" required oninput="formatInputThousand(this)" placeholder="0" class="w-full px-3 py-2 border rounded-xl text-xs font-bold text-slate-800">
                 </div>
@@ -683,10 +679,6 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Detail Pembelian / Pemasukan</label>
                     <input type="text" id="invDetail" required placeholder="Contoh: Setoran Modal / Pembelian Pompa" class="w-full px-3 py-2 border rounded-xl text-xs">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Transaksi <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
-                    <input type="date" id="invDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Nominal (Rp)</label>
@@ -735,10 +727,6 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Pembelian <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
-                    <input type="date" id="dpDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
-                </div>
-                <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Nominal Pembelian (Rp)</label>
                     <input type="text" inputmode="numeric" id="dpAmount" required oninput="formatInputThousand(this)" placeholder="0" class="w-full px-3 py-2 border rounded-xl text-xs font-bold text-slate-800">
                 </div>
@@ -765,10 +753,6 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Kategori</label>
                     <input type="text" id="ghCategory" required placeholder="Contoh: Konstruksi / Irigasi" class="w-full px-3 py-2 border rounded-xl text-xs">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Aset / Transaksi <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
-                    <input type="date" id="ghDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Biaya (Rp)</label>
@@ -799,10 +783,6 @@
                     <input type="text" id="tanItem" required placeholder="Contoh: Nutrisi AB Mix 500L" class="w-full px-3 py-2 border rounded-xl text-xs">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Transaksi <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
-                    <input type="date" id="tanDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
-                </div>
-                <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Biaya (Rp)</label>
                     <input type="text" inputmode="numeric" id="tanCost" required oninput="formatInputThousand(this)" placeholder="0" class="w-full px-3 py-2 border rounded-xl text-xs font-bold text-slate-800">
                 </div>
@@ -829,10 +809,6 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Kategori / Spesifikasi</label>
                     <input type="text" id="mbCategory" required placeholder="Contoh: Media Tanam / Nutrisi / Perlengkapan" class="w-full px-3 py-2 border rounded-xl text-xs">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Pembelian <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
-                    <input type="date" id="mbDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Biaya (Rp)</label>
@@ -865,10 +841,6 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Harga per Kg (Rp)</label>
                     <input type="text" inputmode="numeric" id="panPrice" required oninput="formatInputThousand(this)" placeholder="0" class="w-full px-3 py-2 border rounded-xl text-xs font-bold text-slate-800">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Tanggal Panen <span class="text-slate-400 font-normal">(Opsional - Default Hari Ini)</span></label>
-                    <input type="date" id="panDate" class="w-full px-3 py-2 border rounded-xl text-xs text-slate-700">
                 </div>
                 <div class="pt-2 flex justify-end gap-2">
                     <button type="button" onclick="closeModal('modalPanen')" class="px-4 py-2 border rounded-xl text-xs font-semibold">Batal</button>
@@ -1274,20 +1246,6 @@
         function parseFormattedNumber(val) {
             if (!val) return 0;
             return Number(String(val).replace(/\D/g, '')) || 0;
-        }
-
-        function getTimestampFromInput(inputId) {
-            const el = document.getElementById(inputId);
-            if (el && el.value) {
-                const parts = el.value.split('-');
-                if (parts.length === 3) {
-                    const year = parseInt(parts[0], 10);
-                    const month = parseInt(parts[1], 10) - 1;
-                    const day = parseInt(parts[2], 10);
-                    return new Date(year, month, day, 12, 0, 0).getTime();
-                }
-            }
-            return Date.now();
         }
 
         const historyStack = [];
@@ -1964,9 +1922,8 @@
             const category = document.getElementById('cfCategory').value;
             const desc = document.getElementById('cfDesc').value;
             const amount = parseFormattedNumber(document.getElementById('cfAmount').value);
-            const dateVal = getTimestampFromInput('cfDate');
 
-            const record = { type, category, desc, amount, date: dateVal };
+            const record = { type, category, desc, amount, date: Date.now() };
             const tempId = Date.now().toString();
 
             dataCashflow.unshift({ id: tempId, ...record });
@@ -2001,9 +1958,8 @@
             const type = document.getElementById('invType').value;
             const detail = document.getElementById('invDetail').value;
             const amount = parseFormattedNumber(document.getElementById('invAmount').value);
-            const dateVal = getTimestampFromInput('invDate');
 
-            const record = { name, type, detail, amount, date: dateVal };
+            const record = { name, type, detail, amount, date: Date.now() };
             const tempId = Date.now().toString();
 
             dataInvestors.unshift({ id: tempId, ...record });
@@ -2030,8 +1986,7 @@
             const itemName = document.getElementById('dpItemName').value;
             const targetModule = document.getElementById('dpTargetModule').value;
             const amount = parseFormattedNumber(document.getElementById('dpAmount').value);
-            const dateVal = getTimestampFromInput('dpDate');
-            const now = dateVal;
+            const now = Date.now();
 
             if (!amount || amount <= 0) {
                 showToast("Nominal pembelian harus lebih dari 0!", true);
@@ -2121,9 +2076,8 @@
             const item = document.getElementById('ghItem').value;
             const category = document.getElementById('ghCategory').value;
             const cost = parseFormattedNumber(document.getElementById('ghCost').value);
-            const dateVal = getTimestampFromInput('ghDate');
 
-            const record = { item, category, cost, date: dateVal };
+            const record = { item, category, cost, date: Date.now() };
             const tempId = Date.now().toString();
 
             dataGH.unshift({ id: tempId, ...record });
@@ -2147,9 +2101,8 @@
             const batch = document.getElementById('tanBatch').value;
             const item = document.getElementById('tanItem').value;
             const cost = parseFormattedNumber(document.getElementById('tanCost').value);
-            const dateVal = getTimestampFromInput('tanDate');
 
-            const record = { batch, item, cost, date: dateVal };
+            const record = { batch, item, cost, date: Date.now() };
             const tempId = Date.now().toString();
 
             dataTanaman.unshift({ id: tempId, ...record });
@@ -2173,9 +2126,8 @@
             const item = document.getElementById('mbItem').value;
             const category = document.getElementById('mbCategory').value;
             const cost = parseFormattedNumber(document.getElementById('mbCost').value);
-            const dateVal = getTimestampFromInput('mbDate');
 
-            const record = { item, category, cost, date: dateVal };
+            const record = { item, category, cost, date: Date.now() };
             const tempId = Date.now().toString();
 
             dataMediaBahan.unshift({ id: tempId, ...record });
@@ -2199,9 +2151,8 @@
             const crop = document.getElementById('panCrop').value;
             const qty = parseFormattedNumber(document.getElementById('panQty').value);
             const price = parseFormattedNumber(document.getElementById('panPrice').value);
-            const dateVal = getTimestampFromInput('panDate');
 
-            const record = { crop, qty, price, date: dateVal };
+            const record = { crop, qty, price, date: Date.now() };
             const tempId = Date.now().toString();
 
             dataPanen.unshift({ id: tempId, ...record });
