@@ -371,7 +371,23 @@
                 </div>
             </div>
 
-            <div id="gridInvestorSummary" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+            <!-- Investor Summary Cards & Masjid Loan Total -->
+            <div class="space-y-3">
+                <div id="gridInvestorSummary" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+                <!-- Total Pinjaman Kas Masjid Card -->
+                <div class="p-4 bg-amber-50 rounded-2xl border border-amber-200 shadow-sm flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 bg-amber-200/70 rounded-xl text-amber-900">
+                            <i class="fa-solid fa-mosque text-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider">Total Pinjaman Kas Masjid (External Liability)</h4>
+                            <p class="text-[11px] text-amber-700">Tidak mempengaruhi persentase porsi saham para investor</p>
+                        </div>
+                    </div>
+                    <h3 id="statMasjidLoanTotal" class="text-xl font-extrabold text-amber-950">Rp 0</h3>
+                </div>
+            </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
                 <div class="p-3 bg-slate-50 border-b border-slate-100 font-semibold text-xs text-slate-700 flex justify-between items-center">
@@ -914,7 +930,7 @@
                         <option value="Pak Yanto">Pak Yanto</option>
                         <option value="Pak Umar">Pak Umar</option>
                         <option value="Pak Zamhur">Pak Zamhur</option>
-                        <option value="Pinjam Kas Masjid" selected>🕌 Pinjam Kas Masjid</option>
+                        <option value="Pinjam Kas Masjid">🕌 Pinjam Kas Masjid</option>
                     </select>
                 </div>
                 <div>
@@ -1829,7 +1845,7 @@
         }
 
         function calculateInvestorTotals() {
-            const defaultInvestors = ['Pak Bambang', 'Pak Yanto', 'Pak Umar', 'Pak Zamhur', 'Pinjam Kas Masjid'];
+            const defaultInvestors = ['Pak Bambang', 'Pak Yanto', 'Pak Umar', 'Pak Zamhur'];
             const map = {};
             
             defaultInvestors.forEach(invName => {
@@ -1839,6 +1855,10 @@
             dataInvestors.forEach(i => {
                 const rawName = (i.name || 'Investor').trim();
                 const canonicalName = rawName.toLowerCase();
+                
+                // Exclude Pinjam Kas Masjid from real investor shares
+                if (canonicalName === 'pinjam kas masjid') return;
+
                 if (!map[canonicalName]) {
                     map[canonicalName] = { displayName: rawName, total: 0 };
                 }
@@ -1877,7 +1897,7 @@
 
         window.renderDashboardSummary = function() {
             const invTotals = calculateInvestorTotals();
-            const totalSaham = Object.keys(invTotals).filter(k => k !== 'pinjam kas masjid').reduce((a, b) => a + (Number(invTotals[b].net) || 0), 0);
+            const totalSaham = Object.keys(invTotals).reduce((a, b) => a + (Number(invTotals[b].net) || 0), 0);
             const totalGH = dataGH.reduce((a, b) => a + (Number(b.cost) || 0), 0);
             const totalTanaman = dataTanaman.reduce((a, b) => a + (Number(b.cost) || 0), 0);
             const totalMediaBahan = dataMediaBahan.reduce((a, b) => a + (Number(b.cost) || 0), 0);
@@ -1927,17 +1947,25 @@
             const grid = document.getElementById('gridInvestorSummary');
             const tb = document.getElementById('tableInvestor');
             const invTotals = calculateInvestorTotals();
-            const realInvestors = Object.keys(invTotals).filter(k => k !== 'pinjam kas masjid');
+            const realInvestors = Object.keys(invTotals);
             const totalNet = realInvestors.reduce((a, b) => a + (Number(invTotals[b].net) || 0), 0);
 
+            // Calculate Total Masjid Loan
+            let masjidLoanTotal = 0;
+            dataInvestors.forEach(i => {
+                if ((i.name || '').toLowerCase() === 'pinjam kas masjid') {
+                    masjidLoanTotal += (Number(i.amount) || 0);
+                }
+            });
+            window.setText('statMasjidLoanTotal', formatRp(masjidLoanTotal));
+
             if (grid) {
-                grid.innerHTML = Object.keys(invTotals).map(name => {
+                grid.innerHTML = realInvestors.map(name => {
                     const net = Number(invTotals[name].net) || 0;
-                    const isMasjid = name.toLowerCase() === 'pinjam kas masjid';
-                    const pct = (!isMasjid && totalNet > 0) ? ((net / totalNet) * 100).toFixed(1) : (isMasjid ? '-' : '0.0');
+                    const pct = totalNet > 0 ? ((net / totalNet) * 100).toFixed(1) : '0.0';
                     return `
                         <div class="p-3 bg-white rounded-xl border shadow-sm">
-                            <div class="flex justify-between font-bold text-xs"><span>${escapeHtml(name)}</span><span class="${isMasjid ? 'text-amber-600' : 'text-blue-600'}">${pct}${isMasjid ? '' : '%'}</span></div>
+                            <div class="flex justify-between font-bold text-xs"><span>${escapeHtml(name)}</span><span class="text-blue-600">${pct}%</span></div>
                             <div class="text-sm font-extrabold mt-1">${formatRp(net)}</div>
                         </div>
                     `;
@@ -1955,7 +1983,7 @@
                     
                     const isDirectPurchase = String(i.id).startsWith('dp_');
                     const transferBtn = isDirectPurchase ? `<button onclick="openTransferModal('${i.id}', '${escapeHtml(i.detail)}')" class="ml-1 px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-[10px] font-bold shadow-sm transition-all admin-only" title="Pindahkan ke modul lain"><i class="fa-solid fa-arrows-split-up-and-left mr-1"></i> Alihkan</button>` : '';
-                    const changeInvBtn = isDirectPurchase ? `<button onclick="openChangeInvestorModal('${i.id}', '${escapeHtml(i.name)}')" class="ml-1 px-2 py-1 bg-purple-500 hover:bg-purple-600 text-white rounded-lg text-[10px] font-bold shadow-sm transition-all admin-only" title="Tukar sumber investor"><i class="fa-solid fa-user-pen mr-1"></i> Tukar Investor</button>` : '';
+                    const changeInvBtn = isDirectPurchase ? `<button onclick="openChangeInvestorModal('${i.id}', '${escapeHtml(i.name)}')" class="ml-1 px-2 py-1 bg-purple-500 hover:bg-purple-600 text-white rounded-lg text-[10px] font-bold shadow-sm transition-all admin-only" title="Tukar sumber investor"><i class="fa-solid fa-user-pen mr-1"></i> Ubah Investor</button>` : '';
 
                     return `
                         <tr class="hover:bg-slate-50">
@@ -1988,7 +2016,6 @@
             const loanItem = dataInvestors.find(i => String(i.id) === String(loanId));
             if (!loanItem) return;
 
-            const amount = Number(loanItem.amount) || 0;
             const detailText = `Pelunasan ${loanItem.detail} oleh ${investorName}`;
             
             loanItem.name = investorName;
@@ -2098,6 +2125,12 @@
             invItem.name = newInvestorName;
             invItem.detail = invItem.detail.replace(`(${oldName})`, `(${newInvestorName})`);
 
+            dataCashflow.forEach(c => {
+                if (c.id && c.id.startsWith(batchId)) {
+                    c.desc = c.desc.replace(oldName, newInvestorName);
+                }
+            });
+
             if (db && !String(batchId).startsWith('loc_')) {
                 try {
                     await updateDoc(doc(db, "investors", String(batchId)), {
@@ -2109,7 +2142,7 @@
 
             closeModal('modalChangeInvestor');
             renderAll();
-            showToast(`Investor berhasil ditukar menjadi ${newInvestorName}!`);
+            showToast(`Sumber investor berhasil diubah menjadi ${newInvestorName}!`);
         };
 
         window.renderTableGH = function() {
@@ -2382,7 +2415,7 @@
             const tb = document.getElementById('tableBagiHasil');
             if (!tb) return;
             const invTotals = calculateInvestorTotals();
-            const realInvestors = Object.keys(invTotals).filter(k => k !== 'pinjam kas masjid');
+            const realInvestors = Object.keys(invTotals);
             const totalNet = realInvestors.reduce((a, b) => a + (Number(invTotals[b].net) || 0), 0);
             const totalPanen = dataPanen.reduce((a, b) => a + ((Number(b.qty)||0)*(Number(b.price)||0)), 0);
             const totalTanaman = dataTanaman.reduce((a, b) => a + (Number(b.cost)||0), 0);
