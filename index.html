@@ -102,7 +102,7 @@
                     </div>
                 </div>
 
-                <!-- Navigasi 3 Baris Responsif Tanpa Geser Kanan -->
+                <!-- Navigasi 3 Baris Responsif (3-3-2) Agar Tidak Bertumpuk -->
                 <nav class="grid grid-cols-3 gap-1.5 pt-1.5 border-t border-agri-700/60">
                     <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-2.5 py-2 rounded-lg text-xs font-semibold tab-active-yellow transition-all flex items-center justify-center gap-1 text-center truncate">
                         <i class="fa-solid fa-chart-line"></i>Beranda
@@ -157,10 +157,10 @@
             
             <div class="flex flex-wrap items-center gap-2">
                 <div id="adminToolBar" class="admin-only hidden flex items-center gap-1 bg-white/10 p-1 rounded-xl backdrop-blur-sm border border-white/20">
-                    <button onclick="undo()" id="btnUndo" disabled title="Undo (Ctrl+Z)" class="px-2 py-1 rounded-lg text-xs font-semibold bg-white/20 hover:bg-white/30 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-1">
+                    <button onclick="undo()" id="btnUndo" disabled title="Undo (Ctrl+Z)" class="px-2 py-1 rounded-lg text-xs font-semibold bg-white/20 hover:bg-white/30 text-white disabled:opacity-45 disabled:cursor-not-allowed transition-all flex items-center gap-1">
                         <i class="fa-solid fa-rotate-left"></i> <span class="hidden md:inline">Undo</span>
                     </button>
-                    <button onclick="redo()" id="btnRedo" disabled title="Redo (Ctrl+Y)" class="px-2 py-1 rounded-lg text-xs font-semibold bg-white/20 hover:bg-white/30 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-1">
+                    <button onclick="redo()" id="btnRedo" disabled title="Redo (Ctrl+Y)" class="px-2 py-1 rounded-lg text-xs font-semibold bg-white/20 hover:bg-white/30 text-white disabled:opacity-45 disabled:cursor-not-allowed transition-all flex items-center gap-1">
                         <i class="fa-solid fa-rotate-right"></i> <span class="hidden md:inline">Redo</span>
                     </button>
                     <div class="h-4 w-px bg-white/30 mx-0.5"></div>
@@ -178,7 +178,7 @@
             </div>
         </div>
 
-        <!-- TAB 1: BERANDA -->
+        <!-- TAB: DASHBOARD -->
         <div id="tab-dashboard" class="space-y-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
@@ -282,19 +282,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="bg-amber-50/90 rounded-2xl p-4 border border-amber-200 text-xs text-amber-900 shadow-sm">
-                <div class="flex items-start gap-3">
-                    <div class="p-2 bg-amber-100 rounded-xl text-amber-700 shrink-0"><i class="fa-solid fa-circle-info text-base"></i></div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-amber-950 uppercase text-[11px] tracking-wide">Panduan Investor: Tab Beranda (Executive Dashboard)</h4>
-                        <p class="text-amber-950/80 leading-relaxed">Menyajikan akumulasi real-time seluruh modal saham investor, investasi fisik Green House, biaya variabel tanaman, persediaan bahan, hingga omzet penjualan panen.</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- TAB 2: ARUS KAS -->
+        <!-- TAB: ARUS KAS -->
         <div id="tab-aruskas" class="hidden space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div class="p-3.5 bg-white rounded-2xl shadow-sm border border-slate-100">
@@ -347,19 +337,9 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="bg-amber-50/90 rounded-2xl p-4 border border-amber-200 text-xs text-amber-900 shadow-sm">
-                <div class="flex items-start gap-3">
-                    <div class="p-2 bg-amber-100 rounded-xl text-amber-700 shrink-0"><i class="fa-solid fa-circle-info text-base"></i></div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-amber-950 uppercase text-[11px] tracking-wide">Panduan Investor: Tab Arus Kas</h4>
-                        <p class="text-amber-950/80 leading-relaxed">Mencatat seluruh arus masuk (setoran saham/panen) dan arus keluar untuk keperluan teknis operasional kebun.</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- TAB 3: MODAL SAHAM -->
+        <!-- TAB: MODAL SAHAM -->
         <div id="tab-modalsaham" class="hidden space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
@@ -407,19 +387,9 @@
                     </table>
                 </div>
             </div>
-
-            <div class="bg-amber-50/90 rounded-2xl p-4 border border-amber-200 text-xs text-amber-900 shadow-sm">
-                <div class="flex items-start gap-3">
-                    <div class="p-2 bg-amber-100 rounded-xl text-amber-700 shrink-0"><i class="fa-solid fa-circle-info text-base"></i></div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-amber-950 uppercase text-[11px] tracking-wide">Panduan Investor: Tab Modal Saham</h4>
-                        <p class="text-amber-950/80 leading-relaxed">Persentase porsi saham dihitung dinamis berdasarkan total modal akumulasi yang disetorkan oleh para pemegang saham.</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- TAB 4: GREEN HOUSE -->
+        <!-- TAB: GREEN HOUSE -->
         <div id="tab-greenhouse" class="hidden space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div class="flex items-center gap-2.5">
@@ -446,7 +416,7 @@
                 </div>
             </div>
 
-            <!-- KETAHANAN BANGUNAN (TAHUN) CARD -->
+            <!-- KETAHANAN BANGUNAN CARD -->
             <div class="bg-emerald-50/70 p-4 sm:p-5 rounded-2xl border-2 border-emerald-300 shadow-sm space-y-2">
                 <label for="ghKetahananInput" class="block font-bold text-xs uppercase text-emerald-800 tracking-wider">
                     Ketahanan Bangunan (Tahun)
@@ -476,19 +446,9 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="bg-amber-50/90 rounded-2xl p-4 border border-amber-200 text-xs text-amber-900 shadow-sm">
-                <div class="flex items-start gap-3">
-                    <div class="p-2 bg-amber-100 rounded-xl text-amber-700 shrink-0"><i class="fa-solid fa-circle-info text-base"></i></div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-amber-950 uppercase text-[11px] tracking-wide">INFORMASI INVESTOR: PENYUSUTAN GH</h4>
-                        <p class="text-amber-950/80 leading-relaxed">Total Investasi GH dibagi dengan umur bangunan (dalam bulan) untuk menemukan "Sewa GH per Bulan", lalu dibagi proporsional ke seluruh populasi pohon aktif.</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- TAB 5: MODAL TANAMAN -->
+        <!-- TAB: MODAL TANAMAN -->
         <div id="tab-modaltanaman" class="hidden space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
@@ -509,13 +469,10 @@
                 </div>
             </div>
 
-            <!-- CARD ANEKA JENIS TANAMAN & FORM KALKULATOR -->
+            <!-- CHIPS & CALCULATOR CARD -->
             <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
                 <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Pilih Jenis Tanaman</span>
-                        <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 font-bold"><i class="fa-solid fa-layer-group mr-1"></i> Standalone Per Crop & GLO</span>
-                    </div>
+                    <span class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Pilih Jenis Tanaman</span>
                     <div id="cropChipContainer" class="flex flex-wrap gap-2 text-xs font-bold">
                         <button onclick="selectCropType('CABE')" class="crop-chip px-4 py-1.5 rounded-xl border border-emerald-600 bg-emerald-600 text-white shadow-sm transition-all">CABE</button>
                         <button onclick="selectCropType('CABE BESAR')" class="crop-chip px-4 py-1.5 rounded-xl border border-emerald-300 text-emerald-800 hover:bg-emerald-50 transition-all">CABE BESAR</button>
@@ -544,42 +501,17 @@
                     </div>
                 </div>
 
-                <div class="flex flex-wrap justify-between items-center gap-2 pt-1 border-t border-slate-100">
-                    <div class="flex items-center gap-2">
-                        <button onclick="copyCropCalculatorData()" class="px-3 py-1.5 rounded-xl border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm">
-                            <i class="fa-regular fa-copy text-blue-600"></i> COPY
-                        </button>
-                        <button onclick="pasteCropCalculatorData()" class="px-3 py-1.5 rounded-xl border border-purple-200 bg-purple-50 text-purple-700 hover:bg-purple-100 text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm">
-                            <i class="fa-solid fa-paste text-purple-600"></i> PASTE
-                        </button>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="resetCropCalculatorForm()" class="px-3 py-1.5 rounded-xl border border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100 text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm">
-                            <i class="fa-solid fa-rotate-left text-rose-500"></i> RESET GOLONGAN INI
-                        </button>
-                        <button onclick="exportTabPDF('modaltanaman')" class="px-3 py-1.5 rounded-xl border border-slate-300 bg-slate-800 text-white hover:bg-slate-700 text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm">
-                            <i class="fa-solid fa-file-pdf text-rose-400"></i> PDF
-                        </button>
-                    </div>
-                </div>
-
-                <!-- CALCULATOR CARD -->
                 <div class="bg-emerald-50/60 p-4 sm:p-5 rounded-2xl border-2 border-emerald-300 shadow-sm space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label id="lblJumlahPohon" class="block font-bold text-xs uppercase text-emerald-900 tracking-wider mb-1.5">
-                                JUMLAH POHON CABE (GLO 1)
-                            </label>
-                            <div class="bg-white rounded-xl border border-emerald-300 p-2.5 shadow-sm focus-within:ring-2 focus-within:ring-emerald-500">
+                            <label id="lblJumlahPohon" class="block font-bold text-xs uppercase text-emerald-900 tracking-wider mb-1.5">JUMLAH POHON</label>
+                            <div class="bg-white rounded-xl border border-emerald-300 p-2.5 shadow-sm">
                                 <input type="text" inputmode="numeric" id="cropFormTreeCount" value="65" oninput="formatInputThousand(this); calculateModalHpp()" class="w-full font-extrabold text-xl sm:text-2xl text-slate-800 bg-transparent focus:outline-none">
                             </div>
                         </div>
-
                         <div>
-                            <label id="lblModalKeseluruhan" class="block font-bold text-xs uppercase text-emerald-900 tracking-wider mb-1.5">
-                                MODAL KESELURUHAN (CABE) (Rp)
-                            </label>
-                            <div class="bg-white rounded-xl border border-emerald-300 p-2.5 shadow-sm focus-within:ring-2 focus-within:ring-emerald-500">
+                            <label id="lblModalKeseluruhan" class="block font-bold text-xs uppercase text-emerald-900 tracking-wider mb-1.5">MODAL KESELURUHAN (RP)</label>
+                            <div class="bg-white rounded-xl border border-emerald-300 p-2.5 shadow-sm">
                                 <input type="text" inputmode="numeric" id="cropFormTotalCost" value="150.000" oninput="formatInputThousand(this); calculateModalHpp()" class="w-full font-extrabold text-xl sm:text-2xl text-emerald-800 bg-transparent focus:outline-none">
                             </div>
                         </div>
@@ -587,9 +519,7 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 border-t border-emerald-200/60">
                         <div>
-                            <label class="block font-bold text-xs uppercase text-emerald-900 tracking-wider mb-1.5">
-                                ESTIMASI UMUR TANAM (HARI / BULAN)
-                            </label>
+                            <label class="block font-bold text-xs uppercase text-emerald-900 tracking-wider mb-1.5">ESTIMASI UMUR TANAM (HARI / BULAN)</label>
                             <div class="grid grid-cols-2 gap-2">
                                 <div class="bg-white rounded-xl border border-emerald-300 p-2 shadow-sm flex items-center">
                                     <input type="number" id="cropFormLifespanDays" min="1" value="90" oninput="calculateModalHpp()" class="w-full font-extrabold text-base text-slate-800 bg-transparent focus:outline-none text-center">
@@ -600,11 +530,8 @@
                                 </div>
                             </div>
                         </div>
-
                         <div>
-                            <label class="block font-bold text-xs uppercase text-emerald-900 tracking-wider mb-1.5">
-                                LOKASI TANAM (PAKAI GREEN HOUSE?)
-                            </label>
+                            <label class="block font-bold text-xs uppercase text-emerald-900 tracking-wider mb-1.5">LOKASI TANAM (PAKAI GREEN HOUSE?)</label>
                             <div class="bg-white rounded-xl border border-emerald-300 p-1 shadow-sm">
                                 <select id="cropFormInGH" onchange="calculateModalHpp()" class="w-full font-bold text-xs sm:text-sm text-slate-800 bg-transparent p-1.5 focus:outline-none cursor-pointer">
                                     <option value="ya" selected>🌿 Ya - Ditanam di Green House (Dengan Sewa)</option>
@@ -616,41 +543,20 @@
 
                     <!-- 3 KOTAK TERPISAH: HPP TANAMAN, HPP GH, TOTAL -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
-                        <!-- Box 1: HPP Tanaman -->
                         <div class="p-3.5 bg-white rounded-xl border border-emerald-300 shadow-sm flex flex-col justify-between">
                             <span class="text-[10px] font-bold text-slate-500 uppercase">1. HPP Tanaman / Pohon</span>
                             <span id="cropFormHppTanamanResult" class="text-base sm:text-lg font-extrabold text-emerald-800 mt-1">Rp 2.308</span>
                             <span class="text-[10px] text-slate-400 mt-1">Modal Keseluruhan / Jumlah Pohon</span>
                         </div>
-
-                        <!-- Box 2: HPP Green House -->
-                        <div class="p-3.5 bg-white rounded-xl border border-emerald-300 shadow-sm flex flex-col justify-between" id="cropFormHppGhBox">
+                        <div class="p-3.5 bg-white rounded-xl border border-emerald-300 shadow-sm flex flex-col justify-between">
                             <span class="text-[10px] font-bold text-slate-500 uppercase">2. HPP Green House / Pohon</span>
                             <span id="cropFormHppGhResult" class="text-base sm:text-lg font-extrabold text-teal-800 mt-1">Rp 0</span>
                             <span class="text-[10px] text-slate-400 mt-1">Alokasi Sewa GH Proporsional</span>
                         </div>
-
-                        <!-- Box 3: Total Penjumlahan -->
                         <div class="p-3.5 bg-indigo-50 rounded-xl border border-indigo-200 shadow-sm flex flex-col justify-between">
                             <span class="text-[10px] font-bold text-indigo-700 uppercase">3. Total HPP + GH / Pohon</span>
                             <span id="cropFormTotalEffectiveHpp" class="text-base sm:text-lg font-extrabold text-indigo-950 mt-1">Rp 2.308</span>
                             <span class="text-[10px] text-indigo-600 mt-1">HPP Tanaman + HPP Green House</span>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
-                        <div>
-                            <label class="block font-bold text-xs uppercase text-emerald-900 tracking-wider mb-1.5">TANGGAL TANAM</label>
-                            <div class="bg-white rounded-xl border border-emerald-300 p-2 shadow-sm">
-                                <input type="date" id="cropFormPlantDate" class="w-full font-medium text-xs text-slate-800 bg-transparent focus:outline-none">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block font-bold text-xs uppercase text-emerald-900 tracking-wider mb-1.5">NAMA METODE NUTRISI</label>
-                            <div class="bg-white rounded-xl border border-emerald-300 p-2 shadow-sm">
-                                <input type="text" id="cropFormNutrisiMethod" placeholder="Contoh: Fase Ekstra / Metode A..." class="w-full font-medium text-xs text-slate-800 bg-transparent focus:outline-none placeholder:text-slate-400">
-                            </div>
                         </div>
                     </div>
 
@@ -662,8 +568,6 @@
                 </div>
             </div>
 
-            <div id="gridTanamanSummary" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
-
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-x-auto">
                 <table class="w-full text-left border-collapse text-xs">
                     <thead>
@@ -671,7 +575,6 @@
                             <th class="p-3">Jenis / Batch Tanaman</th>
                             <th class="p-3 text-center">Lokasi & Umur</th>
                             <th class="p-3 text-center">Jumlah Pohon</th>
-                            <th class="p-3">Detail / Kategori</th>
                             <th class="p-3 text-right">Modal Keseluruhan (Rp)</th>
                             <th class="p-3 text-right text-emerald-700">HPP Tanaman (Rp/phn)</th>
                             <th class="p-3 text-right text-teal-700">HPP GH (Rp/phn)</th>
@@ -680,23 +583,13 @@
                         </tr>
                     </thead>
                     <tbody id="tableTanaman" class="divide-y divide-slate-100">
-                        <tr><td colspan="9" class="p-4 text-center text-slate-400">Belum ada modal tanaman.</td></tr>
+                        <tr><td colspan="8" class="p-4 text-center text-slate-400">Belum ada modal tanaman.</td></tr>
                     </tbody>
                 </table>
             </div>
-
-            <div class="bg-amber-50/90 rounded-2xl p-4 border border-amber-200 text-xs text-amber-900 shadow-sm">
-                <div class="flex items-start gap-3">
-                    <div class="p-2 bg-amber-100 rounded-xl text-amber-700 shrink-0"><i class="fa-solid fa-circle-info text-base"></i></div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-amber-950 uppercase text-[11px] tracking-wide">INFORMASI INVESTOR: HPP TANAMAN & HPP GH</h4>
-                        <p class="text-amber-950/80 leading-relaxed">Pemisahan akurat antara HPP Tanaman dan alokasi sewa/penyusutan Green House per pohon berdasarkan total populasi aktif.</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- TAB 6: MEDIA / BAHAN -->
+        <!-- TAB: MEDIA / BAHAN -->
         <div id="tab-mediabahan" class="hidden space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
@@ -709,7 +602,7 @@
                         <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
                     </div>
                     <button onclick="exportTabPDF('mediabahan')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
-                        <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Media/Bahan
+                        <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF
                     </button>
                     <button onclick="openModal('modalMediaBahan')" class="admin-only hidden px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm">
                         <i class="fa-solid fa-plus"></i> Tambah Media / Bahan
@@ -733,19 +626,9 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="bg-amber-50/90 rounded-2xl p-4 border border-amber-200 text-xs text-amber-900 shadow-sm">
-                <div class="flex items-start gap-3">
-                    <div class="p-2 bg-amber-100 rounded-xl text-amber-700 shrink-0"><i class="fa-solid fa-circle-info text-base"></i></div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-amber-950 uppercase text-[11px] tracking-wide">Panduan Investor: Tab Media Tanam & Bahan</h4>
-                        <p class="text-amber-950/80 leading-relaxed">Pencatatan persediaan fisik consumable seperti cocopeat, sekam bakar, polibag, tray semai, rockwool, dan perlengkapan.</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- TAB 7: HASIL PANEN -->
+        <!-- TAB: HASIL PANEN -->
         <div id="tab-hasilpanen" class="hidden space-y-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
@@ -758,7 +641,7 @@
                         <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
                     </div>
                     <button onclick="exportTabPDF('hasilpanen')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
-                        <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF Panen
+                        <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF
                     </button>
                     <button onclick="openModal('modalPanen')" class="admin-only hidden px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm">
                         <i class="fa-solid fa-plus"></i> Tambah Hasil Panen
@@ -786,7 +669,7 @@
                 </table>
             </div>
 
-            <!-- RINCIAN KEUNTUNGAN PANEN VS MODAL TOTAL PER JENIS TANAMAN & GLO -->
+            <!-- TABEL ANALISIS KEUNTUNGAN & ROI -->
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
                 <div class="flex items-center justify-between border-b pb-3">
                     <div>
@@ -816,19 +699,9 @@
                     </table>
                 </div>
             </div>
-
-            <div class="bg-amber-50/90 rounded-2xl p-4 border border-amber-200 text-xs text-amber-900 shadow-sm">
-                <div class="flex items-start gap-3">
-                    <div class="p-2 bg-amber-100 rounded-xl text-amber-700 shrink-0"><i class="fa-solid fa-circle-info text-base"></i></div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-amber-950 uppercase text-[11px] tracking-wide">Panduan Investor: Tab Hasil Panen & Analisis Keuntungan</h4>
-                        <p class="text-amber-950/80 leading-relaxed">Modal Total dihitung dari Modal Keseluruhan ditambah beban Alokasi Sewa GH spesifik per batch. Keuntungan bersih adalah selisih antara Pendapatan Panen dikurangi Modal Total.</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- TAB 8: BAGI HASIL -->
+        <!-- TAB: BAGI HASIL -->
         <div id="tab-bagihasil" class="hidden space-y-4">
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-3 gap-3">
@@ -863,20 +736,11 @@
                     </table>
                 </div>
             </div>
-
-            <div class="bg-amber-50/90 rounded-2xl p-4 border border-amber-200 text-xs text-amber-900 shadow-sm">
-                <div class="flex items-start gap-3">
-                    <div class="p-2 bg-amber-100 rounded-xl text-amber-700 shrink-0"><i class="fa-solid fa-circle-info text-base"></i></div>
-                    <div class="space-y-1">
-                        <h4 class="font-bold text-amber-950 uppercase text-[11px] tracking-wide">Panduan Investor: Simulasi Bagi Hasil (Dividen)</h4>
-                        <p class="text-amber-950/80 leading-relaxed">Hak Dividen = Laba Bersih x Porsi Saham (%) di mana Laba Bersih = Total Panen - Total Modal Tanaman.</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 
     <!-- MODALS -->
+    <!-- MODAL: Admin Password (Bulatan sandi tersembunyi type="password") -->
     <div id="modalAdminPassword" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl space-y-4">
             <div class="flex items-center gap-3 text-agri-800 border-b pb-3">
@@ -1007,14 +871,14 @@
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Barang</label>
-                    <input type="text" id="dpItemName" required placeholder="Contoh: Besi GH" class="w-full px-3 py-2 border rounded-xl text-xs">
+                    <input type="text" id="dpItemName" required placeholder="Contoh: EM 4 / Polibag" class="w-full px-3 py-2 border rounded-xl text-xs">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Modul Tujuan</label>
                     <select id="dpTargetModule" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold text-slate-800">
                         <option value="greenhouse">Modal Green House</option>
                         <option value="modaltanaman">Modal Tanaman</option>
-                        <option value="mediabahan">Modal Media / Bahan</option>
+                        <option value="mediabahan" selected>Modal Media / Bahan</option>
                     </select>
                 </div>
                 <div>
@@ -1029,7 +893,7 @@
         </div>
     </div>
 
-    <!-- MODAL: Modal GH -->
+    <!-- MODAL: Green House -->
     <div id="modalGH" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b pb-3">
@@ -1061,7 +925,7 @@
         </div>
     </div>
 
-    <!-- MODAL: Modal Tanaman -->
+    <!-- MODAL: Tanaman -->
     <div id="modalTanaman" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b pb-3">
@@ -1178,7 +1042,7 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Volume (Kg) (Bisa koma, misal: 2,4)</label>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Volume (Kg) (Bisa koma, misal: 2,4 atau 2.8)</label>
                     <input type="text" inputmode="decimal" id="panQty" required placeholder="0" class="w-full px-3 py-2 border rounded-xl text-xs font-bold text-slate-800">
                 </div>
                 <div>
@@ -1187,7 +1051,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Diambil / Dijual Oleh</label>
-                    <input type="text" id="panSeller" required placeholder="Nama petugas / pengambil" class="w-full px-3 py-2 border rounded-xl text-xs">
+                    <input type="text" id="panSeller" required placeholder="Nama petugas / pembeli" class="w-full px-3 py-2 border rounded-xl text-xs">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Status Pembayaran Uang</label>
@@ -1206,7 +1070,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const MY_FIREBASE_CONFIG = {
@@ -1234,7 +1098,6 @@
 
         let selectedCrop = 'CABE';
         let selectedGlo = 'GLO 1';
-        let copiedCropData = null;
         let cropCalculatorStore = {};
 
         window.setText = function(id, text) {
@@ -1252,9 +1115,7 @@
                 treeCount: document.getElementById('cropFormTreeCount')?.value || '0',
                 totalCost: document.getElementById('cropFormTotalCost')?.value || '0',
                 lifespanDays: document.getElementById('cropFormLifespanDays')?.value || '90',
-                inGH: document.getElementById('cropFormInGH')?.value || 'ya',
-                plantDate: document.getElementById('cropFormPlantDate')?.value || '',
-                nutrisiMethod: document.getElementById('cropFormNutrisiMethod')?.value || ''
+                inGH: document.getElementById('cropFormInGH')?.value || 'ya'
             };
         }
 
@@ -1269,9 +1130,7 @@
                         treeCount: Number(existingRecord.treeCount || 0).toLocaleString('id-ID'),
                         totalCost: Number(existingRecord.cost || 0).toLocaleString('id-ID'),
                         lifespanDays: String(existingRecord.lifespanDays || 90),
-                        inGH: existingRecord.inGH || 'ya',
-                        plantDate: existingRecord.plantDate || '',
-                        nutrisiMethod: existingRecord.item || ''
+                        inGH: existingRecord.inGH || 'ya'
                     };
                 }
             }
@@ -1281,9 +1140,7 @@
                     treeCount: crop === 'CABE' && glo === 'GLO 1' ? '65' : '0',
                     totalCost: crop === 'CABE' && glo === 'GLO 1' ? '150.000' : '0',
                     lifespanDays: '90',
-                    inGH: 'ya',
-                    plantDate: '',
-                    nutrisiMethod: ''
+                    inGH: 'ya'
                 };
             }
 
@@ -1291,15 +1148,11 @@
             const costInput = document.getElementById('cropFormTotalCost');
             const daysInput = document.getElementById('cropFormLifespanDays');
             const inGHSelect = document.getElementById('cropFormInGH');
-            const dateInput = document.getElementById('cropFormPlantDate');
-            const nutrisiInput = document.getElementById('cropFormNutrisiMethod');
 
             if (treeInput) treeInput.value = data.treeCount;
             if (costInput) costInput.value = data.totalCost;
             if (daysInput) daysInput.value = data.lifespanDays;
             if (inGHSelect) inGHSelect.value = data.inGH;
-            if (dateInput) dateInput.value = data.plantDate;
-            if (nutrisiInput) nutrisiInput.value = data.nutrisiMethod;
 
             cropCalculatorStore[key] = data;
         }
@@ -1391,11 +1244,9 @@
             const months = (days / 30).toFixed(1);
             if (monthsText) monthsText.textContent = `~${months} Bulan`;
 
-            // 1. HPP Tanaman per pohon
             const hppTanamanPerTree = treeCount > 0 ? Math.round(totalCost / treeCount) : 0;
             if (hppTanamanBox) hppTanamanBox.textContent = formatRp(hppTanamanPerTree);
 
-            // 2. Alokasi Sewa GH Proporsional berdasar total seluruh populasi di GH
             const totalGH = dataGH.reduce((acc, item) => acc + (Number(item.cost) || 0), 0);
             const years = Math.max(1, ghKetahananTahun);
             const sewaGHPerBulan = totalGH / (years * 12);
@@ -1428,61 +1279,15 @@
                 });
             });
 
-            const hargaDasarSewaPerPohonPerBulan = totalGlobalPopulasiGH > 0 ? (sewaGHPerBulan / totalGlobalPopulasiGH) : 0;
+            const effectivePopulasi = totalGlobalPopulasiGH > 0 ? totalGlobalPopulasiGH : 1;
+            const sewaGHPerPohonPerBulan = sewaGHPerBulan / effectivePopulasi;
             const cropLifespanMonthsNum = days / 30;
-            const hppGhPerTree = inGH === 'ya' ? Math.round(hargaDasarSewaPerPohonPerBulan * cropLifespanMonthsNum) : 0;
+            const hppGhPerTree = inGH === 'ya' ? Math.round(sewaGHPerPohonPerBulan * cropLifespanMonthsNum) : 0;
             
             if (hppGhBox) hppGhBox.textContent = formatRp(hppGhPerTree);
 
-            // 3. Total HPP Efektif = HPP Tanaman + HPP GH
             const totalEffectiveHpp = hppTanamanPerTree + hppGhPerTree;
             if (totalEffectiveBox) totalEffectiveBox.textContent = formatRp(totalEffectiveHpp);
-        };
-
-        window.copyCropCalculatorData = function() {
-            copiedCropData = {
-                crop: selectedCrop,
-                glo: selectedGlo,
-                treeCount: document.getElementById('cropFormTreeCount')?.value || '0',
-                totalCost: document.getElementById('cropFormTotalCost')?.value || '0',
-                lifespanDays: document.getElementById('cropFormLifespanDays')?.value || '90',
-                inGH: document.getElementById('cropFormInGH')?.value || 'ya',
-                plantDate: document.getElementById('cropFormPlantDate')?.value || '',
-                nutrisiMethod: document.getElementById('cropFormNutrisiMethod')?.value || ''
-            };
-            showToast(`Data kalkulator ${selectedCrop} (${selectedGlo}) disalin!`);
-        };
-
-        window.pasteCropCalculatorData = function() {
-            if (!copiedCropData) {
-                showToast("Belum ada data disalin!", true);
-                return;
-            }
-            document.getElementById('cropFormTreeCount').value = copiedCropData.treeCount;
-            document.getElementById('cropFormTotalCost').value = copiedCropData.totalCost;
-            document.getElementById('cropFormLifespanDays').value = copiedCropData.lifespanDays;
-            document.getElementById('cropFormInGH').value = copiedCropData.inGH;
-            document.getElementById('cropFormPlantDate').value = copiedCropData.plantDate;
-            document.getElementById('cropFormNutrisiMethod').value = copiedCropData.nutrisiMethod;
-
-            saveCurrentCalculatorStateToStore();
-            window.calculateModalHpp();
-            showToast("Data berhasil ditempel!");
-        };
-
-        window.resetCropCalculatorForm = function() {
-            const key = getCropKey(selectedCrop, selectedGlo);
-            cropCalculatorStore[key] = {
-                treeCount: '0',
-                totalCost: '0',
-                lifespanDays: '90',
-                inGH: 'ya',
-                plantDate: '',
-                nutrisiMethod: ''
-            };
-            loadCropCalculatorState(selectedCrop, selectedGlo);
-            window.calculateModalHpp();
-            showToast(`Form ${selectedCrop} (${selectedGlo}) di-reset.`);
         };
 
         window.saveCropFromCalculator = async function() {
@@ -1491,21 +1296,18 @@
                 return;
             }
 
+            saveHistoryState();
             const treeCount = parseFormattedNumber(document.getElementById('cropFormTreeCount')?.value || 0);
             const totalCost = parseFormattedNumber(document.getElementById('cropFormTotalCost')?.value || 0);
             const lifespanDays = Number(document.getElementById('cropFormLifespanDays')?.value || 90);
             const inGH = document.getElementById('cropFormInGH')?.value || 'ya';
-            const plantDate = document.getElementById('cropFormPlantDate')?.value || '';
-            const nutrisiMethod = document.getElementById('cropFormNutrisiMethod')?.value || 'Standar';
 
             if (treeCount <= 0 || totalCost <= 0) {
                 showToast("Jumlah pohon dan modal harus > 0!", true);
                 return;
             }
 
-            saveHistoryState();
             const hppTanamanPerTree = Math.round(totalCost / treeCount);
-
             const totalGH = dataGH.reduce((acc, item) => acc + (Number(item.cost) || 0), 0);
             const years = Math.max(1, ghKetahananTahun);
             const sewaGHPerBulan = totalGH / (years * 12);
@@ -1538,9 +1340,10 @@
                 });
             });
 
-            const hargaDasarSewaPerPohonPerBulan = totalGlobalPopulasiGH > 0 ? (sewaGHPerBulan / totalGlobalPopulasiGH) : 0;
+            const effectivePopulasi = totalGlobalPopulasiGH > 0 ? totalGlobalPopulasiGH : 1;
+            const sewaGHPerPohonPerBulan = sewaGHPerBulan / effectivePopulasi;
             const cropLifespanMonthsNum = lifespanDays / 30;
-            const hppGhPerTree = inGH === 'ya' ? Math.round(hargaDasarSewaPerPohonPerBulan * cropLifespanMonthsNum) : 0;
+            const hppGhPerTree = inGH === 'ya' ? Math.round(sewaGHPerPohonPerBulan * cropLifespanMonthsNum) : 0;
 
             const record = {
                 cropType: selectedCrop,
@@ -1548,8 +1351,7 @@
                 treeCount,
                 lifespanDays,
                 inGH,
-                plantDate,
-                item: nutrisiMethod,
+                item: `Batch ${selectedGlo}`,
                 cost: totalCost,
                 hppTanamanPerTree,
                 hppGhPerTree,
@@ -1562,8 +1364,8 @@
             if (existingIndex !== -1) {
                 const existingId = dataTanaman[existingIndex].id;
                 dataTanaman[existingIndex] = { id: existingId, ...record };
-                if (db && !existingId.startsWith('loc_')) {
-                    try { await updateDoc(doc(db, "modaltanaman", existingId), record); } catch(e) {}
+                if (db && !String(existingId).startsWith('loc_')) {
+                    try { await updateDoc(doc(db, "modaltanaman", String(existingId)), record); } catch(e) {}
                 }
             } else {
                 const tempId = Date.now().toString();
@@ -1697,6 +1499,7 @@
             if (undoBtn) undoBtn.disabled = historyStack.length === 0;
             if (redoBtn) redoBtn.disabled = redoStack.length === 0;
         }
+
         function saveHistoryState() {
             historyStack.push(JSON.stringify({
                 dataCashflow: JSON.parse(JSON.stringify(dataCashflow)),
@@ -1710,6 +1513,7 @@
             redoStack.length = 0;
             updateUndoRedoUI();
         }
+
         window.undo = function() {
             if (historyStack.length === 0) return;
             redoStack.push(JSON.stringify({
@@ -1731,6 +1535,7 @@
             updateUndoRedoUI();
             showToast("Undo berhasil dilakukan!");
         };
+
         window.redo = function() {
             if (redoStack.length === 0) return;
             historyStack.push(JSON.stringify({
@@ -1761,7 +1566,9 @@
             a.click();
             a.remove();
         };
+
         window.triggerImportJson = () => document.getElementById('jsonFileInput').click();
+
         window.handleImportJson = function(e) {
             const f = e.target.files[0];
             if (!f) return;
@@ -1814,7 +1621,7 @@
         function loadSampleData() {
             dataInvestors = [{ id: '1', name: 'Pak Bambang', type: 'masuk', detail: 'Modal Awal', amount: 50000000, date: Date.now() }];
             dataGH = [{ id: '1', item: 'Rangka Baja', category: 'Konstruksi', year: 2026, cost: 45000000 }];
-            dataTanaman = [{ id: '1', cropType: 'CABE', batch: 'GLO 1', treeCount: 65, lifespanDays: 90, inGH: 'ya', item: 'Fase A', cost: 150000, hppTanamanPerTree: 2308, hppGhPerTree: 500 }];
+            dataTanaman = [{ id: '1', cropType: 'CABE', batch: 'GLO 1', treeCount: 65, lifespanDays: 90, inGH: 'ya', item: 'Batch GLO 1', cost: 150000, hppTanamanPerTree: 2308, hppGhPerTree: 500 }];
             renderAll();
         }
 
@@ -1910,6 +1717,10 @@
                 }).join('');
             }
             if (tb) {
+                if (dataInvestors.length === 0) {
+                    tb.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada transaksi modal saham.</td></tr>';
+                    return;
+                }
                 tb.innerHTML = dataInvestors.map(i => `
                     <tr class="hover:bg-slate-50">
                         <td class="p-3">${new Date(i.date || Date.now()).toLocaleDateString('id-ID')}</td>
@@ -1955,7 +1766,7 @@
             const tb = document.getElementById('tableTanaman');
             if (!tb) return;
             if (dataTanaman.length === 0) {
-                tb.innerHTML = '<tr><td colspan="9" class="p-4 text-center text-slate-400">Belum ada tanaman.</td></tr>';
+                tb.innerHTML = '<tr><td colspan="8" class="p-4 text-center text-slate-400">Belum ada tanaman.</td></tr>';
                 return;
             }
             tb.innerHTML = dataTanaman.map(t => {
@@ -1967,7 +1778,6 @@
                         <td class="p-3 font-bold">${escapeHtml(t.cropType)} (${escapeHtml(t.batch)})</td>
                         <td class="p-3 text-center">${t.inGH === 'ya' ? 'Green House' : 'Terbuka'} (${t.lifespanDays} Hari)</td>
                         <td class="p-3 text-center">${(Number(t.treeCount)||0).toLocaleString('id-ID')}</td>
-                        <td class="p-3">${escapeHtml(t.item)}</td>
                         <td class="p-3 text-right font-bold">${formatRp(t.cost)}</td>
                         <td class="p-3 text-right text-emerald-700">${formatRp(hppTanaman)}</td>
                         <td class="p-3 text-right text-teal-700">${formatRp(hppGh)}</td>
@@ -1980,7 +1790,20 @@
 
         window.renderTableMediaBahan = function() {
             const tb = document.getElementById('tableMediaBahan');
-            if (tb) tb.innerHTML = dataMediaBahan.map(m => `<tr class="hover:bg-slate-50"><td class="p-3 font-bold">${escapeHtml(m.item)}</td><td class="p-3">${escapeHtml(m.category)}</td><td class="p-3">-</td><td class="p-3 text-right font-bold">${formatRp(m.cost)}</td><td class="p-3 text-center admin-only hidden"><button onclick="deleteRecord('mediabahan', '${m.id}')" class="text-red-400"><i class="fa-solid fa-trash"></i></button></td></tr>`).join('');
+            if (!tb) return;
+            if (dataMediaBahan.length === 0) {
+                tb.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada data media / bahan.</td></tr>';
+                return;
+            }
+            tb.innerHTML = dataMediaBahan.map(m => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-bold">${escapeHtml(m.item)}</td>
+                    <td class="p-3">${escapeHtml(m.category)}</td>
+                    <td class="p-3">${m.date ? new Date(m.date).toLocaleDateString('id-ID') : '-'}</td>
+                    <td class="p-3 text-right font-bold">${formatRp(m.cost)}</td>
+                    <td class="p-3 text-center admin-only hidden"><button onclick="deleteRecord('mediabahan', '${m.id}')" class="text-red-400"><i class="fa-solid fa-trash"></i></button></td>
+                </tr>
+            `).join('');
         };
 
         function populateCropSelectOptions() {
@@ -2116,18 +1939,20 @@
             if (newStatus === 'Sudah Diterima') {
                 const totalNilai = (Number(panenItem.qty) || 0) * (Number(panenItem.price) || 0);
                 const cfRecord = {
+                    id: 'cf_panen_' + id,
                     type: 'masuk',
                     category: 'Hasil Panen',
                     desc: `Penjualan Panen ${panenItem.crop} (${panenItem.batch || 'GLO 1'})`,
                     amount: totalNilai,
                     date: Date.now()
                 };
-                dataCashflow.unshift({ id: 'loc_cf_' + Date.now(), ...cfRecord });
+                dataCashflow.unshift(cfRecord);
                 if (db) {
-                    try { await addDoc(collection(db, "aruskas"), cfRecord); } catch(e) {}
+                    try { await addDoc(collection(db, "aruskas"), { type: cfRecord.type, category: cfRecord.category, desc: cfRecord.desc, amount: cfRecord.amount, date: cfRecord.date }); } catch(e) {}
                 }
                 showToast("Status: Uang dicatat masuk ke Arus Kas!");
             } else {
+                dataCashflow = dataCashflow.filter(c => c.id !== ('cf_panen_' + id));
                 showToast("Status diubah menjadi Belum Diterima.");
             }
 
@@ -2171,7 +1996,8 @@
             e.preventDefault();
             saveHistoryState();
             const r = { type: document.getElementById('cfType').value, category: document.getElementById('cfCategory').value, desc: document.getElementById('cfDesc').value, amount: parseFormattedNumber(document.getElementById('cfAmount').value), date: Date.now() };
-            dataCashflow.unshift({ id: Date.now().toString(), ...r });
+            const newId = Date.now().toString();
+            dataCashflow.unshift({ id: newId, ...r });
             if (db) await addDoc(collection(db, "aruskas"), r);
             renderAll();
             showToast("Arus kas disimpan!");
@@ -2183,13 +2009,95 @@
             e.preventDefault();
             saveHistoryState();
             const name = document.getElementById('invNameSelect').value === 'CUSTOM' ? document.getElementById('invCustomName').value : document.getElementById('invNameSelect').value;
-            const r = { name, type: document.getElementById('invType').value, detail: document.getElementById('invDetail').value, amount: parseFormattedNumber(document.getElementById('invAmount').value), date: Date.now() };
-            dataInvestors.unshift({ id: Date.now().toString(), ...r });
-            if (db) await addDoc(collection(db, "investors"), r);
+            const type = document.getElementById('invType').value;
+            const detail = document.getElementById('invDetail').value;
+            const amount = parseFormattedNumber(document.getElementById('invAmount').value);
+            const date = Date.now();
+            const recordId = 'inv_' + date;
+
+            const r = { id: recordId, name, type, detail, amount, date };
+            dataInvestors.unshift(r);
+            if (db) await addDoc(collection(db, "investors"), { name, type, detail, amount, date });
+
+            const cfRecord = {
+                id: 'cf_link_' + recordId,
+                type: type,
+                category: 'Saham',
+                desc: `Modal Saham (${name}): ${detail}`,
+                amount: amount,
+                date: date
+            };
+            dataCashflow.unshift(cfRecord);
+            if (db) {
+                try { await addDoc(collection(db, "aruskas"), { type: cfRecord.type, category: cfRecord.category, desc: cfRecord.desc, amount: cfRecord.amount, date: cfRecord.date }); } catch(err) {}
+            }
+
             renderAll();
-            showToast("Modal saham disimpan!");
+            showToast("Modal saham & arus kas tersimpan!");
             e.target.reset();
             closeModal('modalInvestor');
+        };
+
+        window.handleSaveDirectPurchase = async function(e) {
+            e.preventDefault();
+            saveHistoryState();
+            const invName = document.getElementById('dpInvName').value;
+            const itemName = document.getElementById('dpItemName').value;
+            const targetModule = document.getElementById('dpTargetModule').value;
+            const amount = parseFormattedNumber(document.getElementById('dpAmount').value);
+            const date = Date.now();
+            const batchId = 'dp_' + date;
+
+            const invRecord = { id: batchId, name: invName, type: 'keluar', detail: `Beli Langsung: ${itemName}`, amount, date };
+            dataInvestors.unshift(invRecord);
+            if (db) {
+                try { await setDoc(doc(db, "investors", batchId), { name: invRecord.name, type: invRecord.type, detail: invRecord.detail, amount: invRecord.amount, date: invRecord.date }); } catch(err) {}
+            }
+
+            const cfInRecord = {
+                id: batchId + '_cf_in',
+                type: 'masuk',
+                category: 'Saham',
+                desc: `Setoran Pembelian Langsung (${invName}): ${itemName}`,
+                amount: amount,
+                date: date - 1
+            };
+            const cfOutRecord = {
+                id: batchId + '_cf_out',
+                type: 'keluar',
+                category: 'Saham',
+                desc: `Pembelian Langsung (${invName}): ${itemName}`,
+                amount: amount,
+                date: date
+            };
+
+            dataCashflow.unshift(cfInRecord);
+            dataCashflow.unshift(cfOutRecord);
+            if (db) {
+                try {
+                    await setDoc(doc(db, "aruskas", cfInRecord.id), { type: cfInRecord.type, category: cfInRecord.category, desc: cfInRecord.desc, amount: cfInRecord.amount, date: cfInRecord.date });
+                    await setDoc(doc(db, "aruskas", cfOutRecord.id), { type: cfOutRecord.type, category: cfOutRecord.category, desc: cfOutRecord.desc, amount: cfOutRecord.amount, date: cfOutRecord.date });
+                } catch(err) {}
+            }
+
+            if (targetModule === 'greenhouse') {
+                const ghRecord = { id: batchId, item: itemName, category: 'Pembelian Langsung', year: new Date().getFullYear(), cost: amount, date };
+                dataGH.unshift(ghRecord);
+                if (db) { try { await setDoc(doc(db, "greenhouse", batchId), { item: ghRecord.item, category: ghRecord.category, year: ghRecord.year, cost: ghRecord.cost, date: ghRecord.date }); } catch(err) {} }
+            } else if (targetModule === 'modaltanaman') {
+                const tanRecord = { id: batchId, cropType: 'CABE', batch: 'GLO 1', treeCount: 65, lifespanDays: 90, inGH: 'ya', item: itemName, cost: amount, hppTanamanPerTree: Math.round(amount/65), hppGhPerTree: 500, date };
+                dataTanaman.unshift(tanRecord);
+                if (db) { try { await setDoc(doc(db, "modaltanaman", batchId), tanRecord); } catch(err) {} }
+            } else if (targetModule === 'mediabahan') {
+                const mbRecord = { id: batchId, item: itemName, category: 'Pembelian Langsung', cost: amount, date };
+                dataMediaBahan.unshift(mbRecord);
+                if (db) { try { await setDoc(doc(db, "mediabahan", batchId), { item: mbRecord.item, category: mbRecord.category, cost: mbRecord.cost, date: mbRecord.date }); } catch(err) {} }
+            }
+
+            renderAll();
+            showToast("Pembelian langsung tersinkron otomatis ke Kas & Modul Terkait!");
+            e.target.reset();
+            closeModal('modalDirectPurchase');
         };
 
         window.handleSaveGH = async function(e) {
@@ -2265,15 +2173,16 @@
 
                 if (statusVal === 'Sudah Diterima') {
                     const cfRecord = {
+                        id: 'cf_panen_' + newId,
                         type: 'masuk',
                         category: 'Hasil Panen',
                         desc: `Penjualan Panen ${r.crop} (${r.batch})`,
                         amount: totalNilai,
                         date: Date.now()
                     };
-                    dataCashflow.unshift({ id: 'loc_cf_' + Date.now(), ...cfRecord });
+                    dataCashflow.unshift(cfRecord);
                     if (db) {
-                        try { await addDoc(collection(db, "aruskas"), cfRecord); } catch(e) {}
+                        try { await addDoc(collection(db, "aruskas"), { type: cfRecord.type, category: cfRecord.category, desc: cfRecord.desc, amount: cfRecord.amount, date: cfRecord.date }); } catch(e) {}
                     }
                 }
                 showToast("Hasil panen disimpan!");
@@ -2287,15 +2196,58 @@
         window.deleteRecord = async function(coll, id) {
             if (currentRole !== 'admin') { showToast("Hanya Admin!", true); return; }
             saveHistoryState();
-            if (db) await deleteDoc(doc(db, coll, String(id)));
-            if (coll === 'aruskas') dataCashflow = dataCashflow.filter(x => x.id !== id);
-            if (coll === 'investors') dataInvestors = dataInvestors.filter(x => x.id !== id);
-            if (coll === 'greenhouse') dataGH = dataGH.filter(x => x.id !== id);
-            if (coll === 'modaltanaman') dataTanaman = dataTanaman.filter(x => x.id !== id);
-            if (coll === 'mediabahan') dataMediaBahan = dataMediaBahan.filter(x => x.id !== id);
-            if (coll === 'hasilpanen') dataPanen = dataPanen.filter(x => x.id !== id);
+
+            let targetId = String(id);
+            let linkedBatchId = null;
+
+            if (targetId.startsWith('dp_')) {
+                linkedBatchId = targetId;
+            } else {
+                const foundInInv = dataInvestors.find(x => String(x.id) === targetId);
+                const foundInMb = dataMediaBahan.find(x => String(x.id) === targetId);
+                const foundInGh = dataGH.find(x => String(x.id) === targetId);
+                const foundInTan = dataTanaman.find(x => String(x.id) === targetId);
+                
+                if (foundInInv && String(foundInInv.id).startsWith('dp_')) linkedBatchId = foundInInv.id;
+                else if (foundInMb && String(foundInMb.id).startsWith('dp_')) linkedBatchId = foundInMb.id;
+                else if (foundInGh && String(foundInGh.id).startsWith('dp_')) linkedBatchId = foundInGh.id;
+                else if (foundInTan && String(foundInTan.id).startsWith('dp_')) linkedBatchId = foundInTan.id;
+            }
+
+            if (linkedBatchId) {
+                const cfInId = linkedBatchId + '_cf_in';
+                const cfOutId = linkedBatchId + '_cf_out';
+
+                if (db) {
+                    try {
+                        await deleteDoc(doc(db, "investors", linkedBatchId));
+                        await deleteDoc(doc(db, "aruskas", cfInId));
+                        await deleteDoc(doc(db, "aruskas", cfOutId));
+                        await deleteDoc(doc(db, "greenhouse", linkedBatchId));
+                        await deleteDoc(doc(db, "modaltanaman", linkedBatchId));
+                        await deleteDoc(doc(db, "mediabahan", linkedBatchId));
+                    } catch(err) {}
+                }
+
+                dataInvestors = dataInvestors.filter(x => x.id !== linkedBatchId);
+                dataCashflow = dataCashflow.filter(x => x.id !== cfInId && x.id !== cfOutId);
+                dataGH = dataGH.filter(x => x.id !== linkedBatchId);
+                dataTanaman = dataTanaman.filter(x => x.id !== linkedBatchId);
+                dataMediaBahan = dataMediaBahan.filter(x => x.id !== linkedBatchId);
+            } else {
+                if (db) {
+                    try { await deleteDoc(doc(db, coll, targetId)); } catch(err) {}
+                }
+                if (coll === 'aruskas') dataCashflow = dataCashflow.filter(x => x.id !== targetId);
+                if (coll === 'investors') dataInvestors = dataInvestors.filter(x => x.id !== targetId);
+                if (coll === 'greenhouse') dataGH = dataGH.filter(x => x.id !== targetId);
+                if (coll === 'modaltanaman') dataTanaman = dataTanaman.filter(x => x.id !== targetId);
+                if (coll === 'mediabahan') dataMediaBahan = dataMediaBahan.filter(x => x.id !== targetId);
+                if (coll === 'hasilpanen') dataPanen = dataPanen.filter(x => x.id !== targetId);
+            }
+
             renderAll();
-            showToast("Berhasil dihapus.");
+            showToast("Data & seluruh data terkait berhasil dihapus.");
         };
 
         window.toggleCustomInvestorInput = function(v) {
