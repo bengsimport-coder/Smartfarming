@@ -99,7 +99,7 @@
                     </div>
                 </div>
 
-                <!-- 3-Row Navigation Grid (Prevent Overlap) -->
+                <!-- 3-Row Navigation Grid -->
                 <nav class="grid grid-cols-3 gap-1.5 pt-1.5 border-t border-agri-700/60">
                     <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-2 py-2 rounded-lg text-xs font-semibold tab-active-yellow transition-all flex items-center justify-center gap-1 text-center truncate">
                         <i class="fa-solid fa-chart-line"></i>Beranda
@@ -866,6 +866,7 @@
                         <option value="Pak Yanto">Pak Yanto</option>
                         <option value="Pak Umar">Pak Umar</option>
                         <option value="Pak Zamhur">Pak Zamhur</option>
+                        <option value="Pinjam Kas Masjid">🕌 Pinjam Kas Masjid</option>
                         <option value="CUSTOM">+ Tambah Lainnya...</option>
                     </select>
                 </div>
@@ -907,12 +908,13 @@
             </div>
             <form onsubmit="handleSaveDirectPurchase(event)" class="space-y-3">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Investor</label>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Investor / Sumber Dana</label>
                     <select id="dpInvName" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold text-slate-800">
                         <option value="Pak Bambang">Pak Bambang</option>
                         <option value="Pak Yanto">Pak Yanto</option>
                         <option value="Pak Umar">Pak Umar</option>
                         <option value="Pak Zamhur">Pak Zamhur</option>
+                        <option value="Pinjam Kas Masjid" selected>🕌 Pinjam Kas Masjid</option>
                     </select>
                 </div>
                 <div>
@@ -1147,6 +1149,94 @@
                     <button type="submit" class="px-5 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-xl text-xs font-semibold">Simpan</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Settle Masjid Loan -->
+    <div id="modalSettleLoan" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base">Ubah Status Pinjaman Masjid</h3>
+                <button onclick="closeModal('modalSettleLoan')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <input type="hidden" id="settleLoanId" value="">
+            <div class="space-y-3 text-xs">
+                <div>
+                    <span id="settleLoanInfo" class="font-semibold text-slate-600"></span>
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-600 mb-1">Dibayar / Diambil Oleh Investor:</label>
+                    <select id="settleInvestorName" class="w-full px-3 py-2 border rounded-xl font-semibold text-slate-800">
+                        <option value="Pak Bambang">Pak Bambang</option>
+                        <option value="Pak Yanto">Pak Yanto</option>
+                        <option value="Pak Umar">Pak Umar</option>
+                        <option value="Pak Zamhur">Pak Zamhur</option>
+                    </select>
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('modalSettleLoan')" class="px-4 py-2 border rounded-xl font-semibold">Batal</button>
+                    <button type="button" onclick="confirmSettleLoan()" class="px-5 py-2 bg-agri-600 hover:bg-agri-700 text-white font-semibold rounded-xl shadow-md">Simpan & Alihkan Saham</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Transfer / Alihkan Direct Purchase Item -->
+    <div id="modalTransferItem" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base">Pindahkan Item ke Modul Lain</h3>
+                <button onclick="closeModal('modalTransferItem')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <input type="hidden" id="transferBatchId" value="">
+            <div class="space-y-3 text-xs">
+                <div>
+                    <span id="transferItemInfo" class="font-semibold text-slate-600"></span>
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-600 mb-1">Pilih Modul Tujuan Baru:</label>
+                    <select id="transferTargetModule" class="w-full px-3 py-2 border rounded-xl font-semibold text-slate-800">
+                        <option value="pupukobat">Persediaan Pupuk & Obat</option>
+                        <option value="mediabahan">Modal Media / Bahan</option>
+                        <option value="greenhouse">Modal Green House</option>
+                        <option value="modaltanaman">Modal Tanaman</option>
+                    </select>
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('modalTransferItem')" class="px-4 py-2 border rounded-xl font-semibold">Batal</button>
+                    <button type="button" onclick="confirmTransferItem()" class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-xl shadow-md">Pindahkan Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Tukar Investor / Ubah Sumber Dana -->
+    <div id="modalChangeInvestor" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base">Ubah Sumber Dana / Investor</h3>
+                <button onclick="closeModal('modalChangeInvestor')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <input type="hidden" id="changeInvBatchId" value="">
+            <div class="space-y-3 text-xs">
+                <div>
+                    <span id="changeInvInfo" class="font-semibold text-slate-600"></span>
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-600 mb-1">Pilih Investor / Sumber Dana Baru:</label>
+                    <select id="newInvestorNameSelect" class="w-full px-3 py-2 border rounded-xl font-semibold text-slate-800">
+                        <option value="Pak Bambang">Pak Bambang</option>
+                        <option value="Pak Yanto">Pak Yanto</option>
+                        <option value="Pak Umar">Pak Umar</option>
+                        <option value="Pak Zamhur">Pak Zamhur</option>
+                        <option value="Pinjam Kas Masjid">🕌 Pinjam Kas Masjid</option>
+                    </select>
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('modalChangeInvestor')" class="px-4 py-2 border rounded-xl font-semibold">Batal</button>
+                    <button type="button" onclick="confirmChangeInvestor()" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md">Tukar Investor</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1739,7 +1829,7 @@
         }
 
         function calculateInvestorTotals() {
-            const defaultInvestors = ['Pak Bambang', 'Pak Yanto', 'Pak Umar', 'Pak Zamhur'];
+            const defaultInvestors = ['Pak Bambang', 'Pak Yanto', 'Pak Umar', 'Pak Zamhur', 'Pinjam Kas Masjid'];
             const map = {};
             
             defaultInvestors.forEach(invName => {
@@ -1787,7 +1877,7 @@
 
         window.renderDashboardSummary = function() {
             const invTotals = calculateInvestorTotals();
-            const totalSaham = Object.values(invTotals).reduce((a, b) => a + (Number(b.net) || 0), 0);
+            const totalSaham = Object.keys(invTotals).filter(k => k !== 'pinjam kas masjid').reduce((a, b) => a + (Number(invTotals[b].net) || 0), 0);
             const totalGH = dataGH.reduce((a, b) => a + (Number(b.cost) || 0), 0);
             const totalTanaman = dataTanaman.reduce((a, b) => a + (Number(b.cost) || 0), 0);
             const totalMediaBahan = dataMediaBahan.reduce((a, b) => a + (Number(b.cost) || 0), 0);
@@ -1837,15 +1927,17 @@
             const grid = document.getElementById('gridInvestorSummary');
             const tb = document.getElementById('tableInvestor');
             const invTotals = calculateInvestorTotals();
-            const totalNet = Object.values(invTotals).reduce((a, b) => a + (Number(b.net) || 0), 0);
+            const realInvestors = Object.keys(invTotals).filter(k => k !== 'pinjam kas masjid');
+            const totalNet = realInvestors.reduce((a, b) => a + (Number(invTotals[b].net) || 0), 0);
 
             if (grid) {
                 grid.innerHTML = Object.keys(invTotals).map(name => {
                     const net = Number(invTotals[name].net) || 0;
-                    const pct = totalNet > 0 ? ((net / totalNet) * 100).toFixed(1) : 0;
+                    const isMasjid = name.toLowerCase() === 'pinjam kas masjid';
+                    const pct = (!isMasjid && totalNet > 0) ? ((net / totalNet) * 100).toFixed(1) : (isMasjid ? '-' : '0.0');
                     return `
                         <div class="p-3 bg-white rounded-xl border shadow-sm">
-                            <div class="flex justify-between font-bold text-xs"><span>${escapeHtml(name)}</span><span class="text-blue-600">${pct}%</span></div>
+                            <div class="flex justify-between font-bold text-xs"><span>${escapeHtml(name)}</span><span class="${isMasjid ? 'text-amber-600' : 'text-blue-600'}">${pct}${isMasjid ? '' : '%'}</span></div>
                             <div class="text-sm font-extrabold mt-1">${formatRp(net)}</div>
                         </div>
                     `;
@@ -1857,17 +1949,167 @@
                     tb.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada transaksi modal saham.</td></tr>';
                     return;
                 }
-                tb.innerHTML = sortedInvestors.map(i => `
-                    <tr class="hover:bg-slate-50">
-                        <td class="p-3">${new Date(i.date || Date.now()).toLocaleDateString('id-ID')}</td>
-                        <td class="p-3 font-bold">${escapeHtml(i.name)}</td>
-                        <td class="p-3">${i.type}</td>
-                        <td class="p-3">${escapeHtml(i.detail)}</td>
-                        <td class="p-3 text-right font-bold">${formatRp(i.amount)}</td>
-                        <td class="p-3 text-center admin-only hidden"><button onclick="deleteRecord('investors', '${i.id}')" class="text-red-400"><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                `).join('');
+                tb.innerHTML = sortedInvestors.map(i => {
+                    const isMasjidLoan = (i.name || '').toLowerCase() === 'pinjam kas masjid';
+                    const settleBtn = isMasjidLoan ? `<button onclick="openSettleLoanModal('${i.id}', '${escapeHtml(i.detail)}', ${i.amount})" class="ml-1 px-2 py-1 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-[10px] font-bold shadow-sm transition-all" title="Bayar & alihkan ke investor"><i class="fa-solid fa-right-left mr-1"></i> Bayar</button>` : '';
+                    
+                    const isDirectPurchase = String(i.id).startsWith('dp_');
+                    const transferBtn = isDirectPurchase ? `<button onclick="openTransferModal('${i.id}', '${escapeHtml(i.detail)}')" class="ml-1 px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-[10px] font-bold shadow-sm transition-all admin-only" title="Pindahkan ke modul lain"><i class="fa-solid fa-arrows-split-up-and-left mr-1"></i> Alihkan</button>` : '';
+                    const changeInvBtn = isDirectPurchase ? `<button onclick="openChangeInvestorModal('${i.id}', '${escapeHtml(i.name)}')" class="ml-1 px-2 py-1 bg-purple-500 hover:bg-purple-600 text-white rounded-lg text-[10px] font-bold shadow-sm transition-all admin-only" title="Tukar sumber investor"><i class="fa-solid fa-user-pen mr-1"></i> Tukar Investor</button>` : '';
+
+                    return `
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3">${new Date(i.date || Date.now()).toLocaleDateString('id-ID')}</td>
+                            <td class="p-3 font-bold">${escapeHtml(i.name)}</td>
+                            <td class="p-3">${i.type}</td>
+                            <td class="p-3">${escapeHtml(i.detail)}</td>
+                            <td class="p-3 text-right font-bold">${formatRp(i.amount)} ${settleBtn} ${transferBtn} ${changeInvBtn}</td>
+                            <td class="p-3 text-center admin-only hidden"><button onclick="deleteRecord('investors', '${i.id}')" class="text-red-400"><i class="fa-solid fa-trash"></i></button></td>
+                        </tr>
+                    `;
+                }).join('');
             }
+        };
+
+        window.openSettleLoanModal = function(id, detail, amount) {
+            document.getElementById('settleLoanId').value = id;
+            document.getElementById('settleLoanInfo').textContent = `Pinjaman: "${detail}" senilai ${formatRp(amount)}`;
+            openModal('modalSettleLoan');
+        };
+
+        window.confirmSettleLoan = async function() {
+            if (currentRole !== 'admin') {
+                showToast("Hanya Admin yang dapat mengubah status pinjaman!", true);
+                return;
+            }
+            saveHistoryState();
+            const loanId = document.getElementById('settleLoanId').value;
+            const investorName = document.getElementById('settleInvestorName').value;
+            const loanItem = dataInvestors.find(i => String(i.id) === String(loanId));
+            if (!loanItem) return;
+
+            const amount = Number(loanItem.amount) || 0;
+            const detailText = `Pelunasan ${loanItem.detail} oleh ${investorName}`;
+            
+            loanItem.name = investorName;
+            loanItem.detail = detailText;
+            loanItem.type = 'masuk';
+
+            if (db && !String(loanId).startsWith('loc_')) {
+                try {
+                    await updateDoc(doc(db, "investors", String(loanId)), {
+                        name: investorName,
+                        detail: detailText,
+                        type: 'masuk'
+                    });
+                } catch(e) {}
+            }
+
+            closeModal('modalSettleLoan');
+            renderAll();
+            showToast(`Pinjaman berhasil dialihkan dan dicatat sebagai modal ${investorName}!`);
+        };
+
+        window.openTransferModal = function(id, detail) {
+            document.getElementById('transferBatchId').value = id;
+            document.getElementById('transferItemInfo').textContent = `Item: "${detail}"`;
+            openModal('modalTransferItem');
+        };
+
+        window.confirmTransferItem = async function() {
+            if (currentRole !== 'admin') {
+                showToast("Hanya Admin!", true);
+                return;
+            }
+            saveHistoryState();
+            const batchId = document.getElementById('transferBatchId').value;
+            const targetModule = document.getElementById('transferTargetModule').value;
+            
+            const invItem = dataInvestors.find(i => String(i.id) === String(batchId));
+            if (!invItem) {
+                showToast("Data tidak ditemukan!", true);
+                return;
+            }
+
+            const itemName = invItem.detail.replace('Pembelian Langsung: ', '');
+            const amount = invItem.amount;
+            const date = invItem.date;
+
+            dataGH = dataGH.filter(x => x.id !== batchId);
+            dataTanaman = dataTanaman.filter(x => x.id !== batchId);
+            dataMediaBahan = dataMediaBahan.filter(x => x.id !== batchId);
+            dataPupukObat = dataPupukObat.filter(x => x.id !== batchId);
+
+            if (db) {
+                try {
+                    await deleteDoc(doc(db, "greenhouse", batchId)).catch(()=>{});
+                    await deleteDoc(doc(db, "modaltanaman", batchId)).catch(()=>{});
+                    await deleteDoc(doc(db, "mediabahan", batchId)).catch(()=>{});
+                    await deleteDoc(doc(db, "pupukobat", batchId)).catch(()=>{});
+                } catch(e) {}
+            }
+
+            if (targetModule === 'greenhouse') {
+                const ghRecord = { id: batchId, item: itemName, category: 'Pembelian Langsung', year: new Date().getFullYear(), cost: amount, date };
+                dataGH.unshift(ghRecord);
+                if (db) { try { await setDoc(doc(db, "greenhouse", batchId), { item: ghRecord.item, category: ghRecord.category, year: ghRecord.year, cost: ghRecord.cost, date: ghRecord.date }); } catch(err) {} }
+            } else if (targetModule === 'modaltanaman') {
+                const tanRecord = { id: batchId, cropType: 'CABE', batch: 'GLO 1', treeCount: 65, lifespanDays: 90, inGH: 'ya', item: itemName, cost: amount, hppTanamanPerTree: Math.round(amount/65), hppGhPerTree: 500, date };
+                dataTanaman.unshift(tanRecord);
+                if (db) { try { await setDoc(doc(db, "modaltanaman", batchId), tanRecord); } catch(err) {} }
+            } else if (targetModule === 'mediabahan') {
+                const mbRecord = { id: batchId, item: itemName, category: 'Pembelian Langsung', cost: amount, date };
+                dataMediaBahan.unshift(mbRecord);
+                if (db) { try { await setDoc(doc(db, "mediabahan", batchId), { item: mbRecord.item, category: mbRecord.category, cost: mbRecord.cost, date: mbRecord.date }); } catch(err) {} }
+            } else if (targetModule === 'pupukobat') {
+                const poRecord = { id: batchId, item: itemName, type: 'Pupuk', qty: '1 Paket', cost: amount, date };
+                dataPupukObat.unshift(poRecord);
+                if (db) { try { await setDoc(doc(db, "pupukobat", batchId), { item: poRecord.item, type: poRecord.type, qty: poRecord.qty, cost: poRecord.cost, date: poRecord.date }); } catch(err) {} }
+            }
+
+            closeModal('modalTransferItem');
+            renderAll();
+            showToast("Item berhasil dialihkan ke modul baru!");
+        };
+
+        window.openChangeInvestorModal = function(id, currentName) {
+            document.getElementById('changeInvBatchId').value = id;
+            document.getElementById('changeInvInfo').textContent = `Investor Saat Ini: ${currentName}`;
+            document.getElementById('newInvestorNameSelect').value = currentName;
+            openModal('modalChangeInvestor');
+        };
+
+        window.confirmChangeInvestor = async function() {
+            if (currentRole !== 'admin') {
+                showToast("Hanya Admin!", true);
+                return;
+            }
+            saveHistoryState();
+            const batchId = document.getElementById('changeInvBatchId').value;
+            const newInvestorName = document.getElementById('newInvestorNameSelect').value;
+
+            const invItem = dataInvestors.find(i => String(i.id) === String(batchId));
+            if (!invItem) {
+                showToast("Data tidak ditemukan!", true);
+                return;
+            }
+
+            const oldName = invItem.name;
+            invItem.name = newInvestorName;
+            invItem.detail = invItem.detail.replace(`(${oldName})`, `(${newInvestorName})`);
+
+            if (db && !String(batchId).startsWith('loc_')) {
+                try {
+                    await updateDoc(doc(db, "investors", String(batchId)), {
+                        name: newInvestorName,
+                        detail: invItem.detail
+                    });
+                } catch(e) {}
+            }
+
+            closeModal('modalChangeInvestor');
+            renderAll();
+            showToast(`Investor berhasil ditukar menjadi ${newInvestorName}!`);
         };
 
         window.renderTableGH = function() {
@@ -2140,12 +2382,13 @@
             const tb = document.getElementById('tableBagiHasil');
             if (!tb) return;
             const invTotals = calculateInvestorTotals();
-            const totalNet = Object.values(invTotals).reduce((a, b) => a + (Number(b.net) || 0), 0);
+            const realInvestors = Object.keys(invTotals).filter(k => k !== 'pinjam kas masjid');
+            const totalNet = realInvestors.reduce((a, b) => a + (Number(invTotals[b].net) || 0), 0);
             const totalPanen = dataPanen.reduce((a, b) => a + ((Number(b.qty)||0)*(Number(b.price)||0)), 0);
             const totalTanaman = dataTanaman.reduce((a, b) => a + (Number(b.cost)||0), 0);
             const laba = Math.max(0, totalPanen - totalTanaman);
 
-            tb.innerHTML = Object.keys(invTotals).map(name => {
+            tb.innerHTML = realInvestors.map(name => {
                 const net = Number(invTotals[name].net) || 0;
                 const pct = totalNet > 0 ? (net / totalNet) : 0;
                 return `<tr class="hover:bg-slate-50"><td class="p-3 font-bold">${escapeHtml(name)}</td><td class="p-3 text-right">${formatRp(net)}</td><td class="p-3 text-right">${(pct*100).toFixed(2)}%</td><td class="p-3 text-right font-bold text-purple-700">${formatRp(laba * pct)}</td></tr>`;
@@ -2208,7 +2451,14 @@
             const date = Date.now();
             const batchId = 'dp_' + date;
 
-            const invRecord = { id: batchId, name: invName, type: 'masuk', detail: `Pembelian Langsung: ${itemName}`, amount, date };
+            const invRecord = { 
+                id: batchId, 
+                name: invName, 
+                type: 'masuk', 
+                detail: `Pembelian Langsung: ${itemName}`, 
+                amount, 
+                date 
+            };
             dataInvestors.unshift(invRecord);
             if (db) {
                 try { await setDoc(doc(db, "investors", batchId), { name: invRecord.name, type: invRecord.type, detail: invRecord.detail, amount: invRecord.amount, date: invRecord.date }); } catch(err) {}
