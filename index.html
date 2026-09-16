@@ -1737,7 +1737,7 @@
             const map = {};
             
             defaultInvestors.forEach(invName => {
-                map[invName.toLowerCase()] = { displayName: invName, masuk: 0, keluar: 0, net: 0 };
+                map[invName.toLowerCase().trim()] = { displayName: invName, masuk: 0, keluar: 0, net: 0 };
             });
 
             dataInvestors.forEach(i => {
@@ -1761,8 +1761,13 @@
 
             const result = {};
             Object.values(map).forEach(obj => {
-                result[obj.displayName] = { masuk: obj.masuk, keluar: obj.keluar, net: obj.net };
+                if (obj.net > 0 || obj.masuk > 0 || obj.keluar > 0) {
+                    result[obj.displayName] = { masuk: obj.masuk, keluar: obj.keluar, net: obj.net };
+                }
             });
+            if (Object.keys(result).length === 0) {
+                defaultInvestors.forEach(inv => { result[inv] = { masuk: 0, keluar: 0, net: 0 }; });
+            }
             return result;
         }
 
@@ -1814,11 +1819,12 @@
 
             const tb = document.getElementById('tableCashflow');
             if (!tb) return;
-            if (dataCashflow.length === 0) {
+            const sortedCashflow = [...dataCashflow].sort((a, b) => (b.date || 0) - (a.date || 0));
+            if (sortedCashflow.length === 0) {
                 tb.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada catatan arus kas.</td></tr>';
                 return;
             }
-            tb.innerHTML = dataCashflow.map(c => `
+            tb.innerHTML = sortedCashflow.map(c => `
                 <tr class="hover:bg-slate-50">
                     <td class="p-3">${c.date ? new Date(c.date).toLocaleDateString('id-ID') : '-'}</td>
                     <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] ${c.type === 'masuk' ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">${c.type}</span></td>
@@ -1849,11 +1855,12 @@
                 }).join('');
             }
             if (tb) {
-                if (dataInvestors.length === 0) {
+                const sortedInvestors = [...dataInvestors].sort((a, b) => (b.date || 0) - (a.date || 0));
+                if (sortedInvestors.length === 0) {
                     tb.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada transaksi modal saham.</td></tr>';
                     return;
                 }
-                tb.innerHTML = dataInvestors.map(i => `
+                tb.innerHTML = sortedInvestors.map(i => `
                     <tr class="hover:bg-slate-50">
                         <td class="p-3">${new Date(i.date || Date.now()).toLocaleDateString('id-ID')}</td>
                         <td class="p-3 font-bold">${escapeHtml(i.name)}</td>
@@ -1869,11 +1876,12 @@
         window.renderTableGH = function() {
             const tb = document.getElementById('tableGH');
             if (!tb) return;
-            if (dataGH.length === 0) {
+            const sortedGH = [...dataGH].sort((a, b) => (b.date || 0) - (a.date || 0));
+            if (sortedGH.length === 0) {
                 tb.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada aset Green House.</td></tr>';
                 return;
             }
-            tb.innerHTML = dataGH.map(g => `
+            tb.innerHTML = sortedGH.map(g => `
                 <tr class="hover:bg-slate-50">
                     <td class="p-3 font-bold">${escapeHtml(g.item)}</td>
                     <td class="p-3">${escapeHtml(g.category)}</td>
@@ -1897,11 +1905,12 @@
         window.renderTableTanaman = function() {
             const tb = document.getElementById('tableTanaman');
             if (!tb) return;
-            if (dataTanaman.length === 0) {
+            const sortedTanaman = [...dataTanaman].sort((a, b) => (b.date || 0) - (a.date || 0));
+            if (sortedTanaman.length === 0) {
                 tb.innerHTML = '<tr><td colspan="8" class="p-4 text-center text-slate-400">Belum ada tanaman.</td></tr>';
                 return;
             }
-            tb.innerHTML = dataTanaman.map(t => {
+            tb.innerHTML = sortedTanaman.map(t => {
                 const hppTanaman = Number(t.hppTanamanPerTree) || 0;
                 const hppGh = Number(t.hppGhPerTree) || 0;
                 const totalEff = hppTanaman + hppGh;
@@ -1923,11 +1932,12 @@
         window.renderTableMediaBahan = function() {
             const tb = document.getElementById('tableMediaBahan');
             if (!tb) return;
-            if (dataMediaBahan.length === 0) {
+            const sortedMedia = [...dataMediaBahan].sort((a, b) => (b.date || 0) - (a.date || 0));
+            if (sortedMedia.length === 0) {
                 tb.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada data media / bahan.</td></tr>';
                 return;
             }
-            tb.innerHTML = dataMediaBahan.map(m => `
+            tb.innerHTML = sortedMedia.map(m => `
                 <tr class="hover:bg-slate-50">
                     <td class="p-3 font-bold">${escapeHtml(m.item)}</td>
                     <td class="p-3">${escapeHtml(m.category)}</td>
@@ -1941,11 +1951,12 @@
         window.renderTablePupukObat = function() {
             const tb = document.getElementById('tablePupukObat');
             if (!tb) return;
-            if (dataPupukObat.length === 0) {
+            const sortedPupuk = [...dataPupukObat].sort((a, b) => (b.date || 0) - (a.date || 0));
+            if (sortedPupuk.length === 0) {
                 tb.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada persediaan pupuk & obat.</td></tr>';
                 return;
             }
-            tb.innerHTML = dataPupukObat.map(p => `
+            tb.innerHTML = sortedPupuk.map(p => `
                 <tr class="hover:bg-slate-50">
                     <td class="p-3 font-bold">${escapeHtml(p.item)}</td>
                     <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] ${p.type === 'Pupuk' ? 'bg-emerald-100 text-emerald-800' : 'bg-purple-100 text-purple-800'}">${escapeHtml(p.type)}</span></td>
@@ -1972,11 +1983,12 @@
         window.renderTablePanen = function() {
             const tb = document.getElementById('tablePanen');
             if (!tb) return;
-            if (dataPanen.length === 0) {
+            const sortedPanen = [...dataPanen].sort((a, b) => (b.date || 0) - (a.date || 0));
+            if (sortedPanen.length === 0) {
                 tb.innerHTML = '<tr><td colspan="8" class="p-4 text-center text-slate-400">Belum ada catatan hasil panen.</td></tr>';
                 return;
             }
-            tb.innerHTML = dataPanen.map(p => {
+            tb.innerHTML = sortedPanen.map(p => {
                 const isPaid = p.status === 'Sudah Diterima';
                 const totalNilai = (Number(p.qty) || 0) * (Number(p.price) || 0);
                 const qtyFormatted = String(p.qty).replace('.', ',');
