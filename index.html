@@ -99,7 +99,7 @@
                     </div>
                 </div>
 
-                <!-- 3-Row Navigation Grid (Updated to include Pupuk & Obat tab) -->
+                <!-- 3-Row Navigation Grid -->
                 <nav class="grid grid-cols-3 gap-1.5 pt-1.5 border-t border-agri-700/60">
                     <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-2.5 py-2 rounded-lg text-xs font-semibold tab-active-yellow transition-all flex items-center justify-center gap-1 text-center truncate">
                         <i class="fa-solid fa-chart-line"></i>Beranda
@@ -1720,7 +1720,13 @@
         }
 
         function calculateInvestorTotals() {
+            const defaultInvestors = ['Pak Bambang', 'Pak Yanto', 'Pak Umar', 'Pak Zamhur'];
             const map = {};
+            
+            defaultInvestors.forEach(invName => {
+                map[invName.toLowerCase()] = { displayName: invName, masuk: 0, keluar: 0, net: 0 };
+            });
+
             dataInvestors.forEach(i => {
                 const rawName = (i.name || 'Investor').trim();
                 const canonicalName = rawName.toLowerCase();
@@ -1733,8 +1739,13 @@
                 } else {
                     map[canonicalName].masuk += amt;
                 }
-                map[canonicalName].net = Math.max(0, map[canonicalName].masuk - map[canonicalName].keluar);
             });
+
+            Object.keys(map).forEach(key => {
+                const item = map[key];
+                item.net = item.masuk + item.keluar; 
+            });
+
             const result = {};
             Object.values(map).forEach(obj => {
                 result[obj.displayName] = { masuk: obj.masuk, keluar: obj.keluar, net: obj.net };
@@ -2175,7 +2186,7 @@
             const date = Date.now();
             const batchId = 'dp_' + date;
 
-            const invRecord = { id: batchId, name: invName, type: 'keluar', detail: `Beli Langsung: ${itemName}`, amount, date };
+            const invRecord = { id: batchId, name: invName, type: 'masuk', detail: `Pembelian Langsung: ${itemName}`, amount, date };
             dataInvestors.unshift(invRecord);
             if (db) {
                 try { await setDoc(doc(db, "investors", batchId), { name: invRecord.name, type: invRecord.type, detail: invRecord.detail, amount: invRecord.amount, date: invRecord.date }); } catch(err) {}
