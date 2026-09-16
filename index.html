@@ -99,7 +99,7 @@
                     </div>
                 </div>
 
-                <!-- 3-Row Navigation Grid -->
+                <!-- 3-Row Navigation Grid (Updated to include Pupuk & Obat tab) -->
                 <nav class="grid grid-cols-3 gap-1.5 pt-1.5 border-t border-agri-700/60">
                     <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-2.5 py-2 rounded-lg text-xs font-semibold tab-active-yellow transition-all flex items-center justify-center gap-1 text-center truncate">
                         <i class="fa-solid fa-chart-line"></i>Beranda
@@ -119,10 +119,13 @@
                     <button onclick="switchTab('mediabahan')" id="nav-mediabahan" class="px-2.5 py-2 rounded-lg text-xs font-semibold text-agri-100 hover:bg-agri-700 transition-all flex items-center justify-center gap-1 text-center truncate">
                         <i class="fa-solid fa-boxes-packing"></i>Media / Bahan
                     </button>
+                    <button onclick="switchTab('pupukobat')" id="nav-pupukobat" class="px-2.5 py-2 rounded-lg text-xs font-semibold text-agri-100 hover:bg-agri-700 transition-all flex items-center justify-center gap-1 text-center truncate">
+                        <i class="fa-solid fa-flask"></i>Pupuk & Obat
+                    </button>
                     <button onclick="switchTab('hasilpanen')" id="nav-hasilpanen" class="px-2.5 py-2 rounded-lg text-xs font-semibold text-agri-100 hover:bg-agri-700 transition-all flex items-center justify-center gap-1 text-center truncate">
                         <i class="fa-solid fa-wheat-awn"></i>Hasil Panen
                     </button>
-                    <button onclick="switchTab('bagihasil')" id="nav-bagihasil" class="px-2.5 py-2 rounded-lg text-xs font-semibold text-agri-100 hover:bg-agri-700 transition-all flex items-center justify-center gap-1 text-center truncate col-span-2">
+                    <button onclick="switchTab('bagihasil')" id="nav-bagihasil" class="px-2.5 py-2 rounded-lg text-xs font-semibold text-agri-100 hover:bg-agri-700 transition-all flex items-center justify-center gap-1 text-center truncate">
                         <i class="fa-solid fa-hand-holding-dollar"></i>Bagi Hasil
                     </button>
                 </nav>
@@ -147,7 +150,7 @@
                 </div>
                 <div>
                     <h3 class="font-bold text-base sm:text-lg">Dashboard Finansial & Operasional</h3>
-                    <p class="text-xs text-agri-100">Sistem terintegrasi real-time modal investor, greenhouse, tanaman, hingga pembagian dividen.</p>
+                    <p class="text-xs text-agri-100">Sistem terintegrasi real-time modal investor, greenhouse, tanaman, persediaan, hingga pembagian dividen.</p>
                 </div>
             </div>
             
@@ -240,6 +243,15 @@
 
                 <div class="p-5 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all">
                     <div class="flex items-center justify-between text-slate-500 text-xs font-medium mb-2">
+                        <span>Persediaan Pupuk & Obat</span>
+                        <i class="fa-solid fa-flask text-emerald-600 text-base"></i>
+                    </div>
+                    <h4 id="statPupukObat" class="text-xl font-bold text-emerald-700">Rp 0</h4>
+                    <p class="text-[11px] text-slate-400 mt-1">Stok pupuk, pestisida & obat tanaman</p>
+                </div>
+
+                <div class="p-5 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all">
+                    <div class="flex items-center justify-between text-slate-500 text-xs font-medium mb-2">
                         <span>Pendapatan Panen</span>
                         <i class="fa-solid fa-wheat-awn text-emerald-500 text-base"></i>
                     </div>
@@ -247,7 +259,7 @@
                     <p class="text-[11px] text-slate-400 mt-1">Hasil penjualan komoditas</p>
                 </div>
 
-                <div class="p-5 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all sm:col-span-2 lg:col-span-3">
+                <div class="p-5 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all sm:col-span-2 lg:col-span-2">
                     <div class="flex items-center justify-between text-slate-500 text-xs font-medium mb-2">
                         <span>Estimasi Laba Bagi Hasil</span>
                         <i class="fa-solid fa-hand-holding-dollar text-purple-500 text-base"></i>
@@ -590,7 +602,7 @@
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
                     <h3 class="font-bold text-slate-800 text-base">Modal Media Tanam & Bahan Operasional</h3>
-                    <p class="text-xs text-slate-400">Pencatatan persediaan media tanam, bahan kimia, polibag, dan perlengkapan</p>
+                    <p class="text-xs text-slate-400">Pencatatan persediaan media tanam, polibag, dan perlengkapan</p>
                 </div>
                 <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                     <div class="relative w-full sm:w-56">
@@ -619,6 +631,49 @@
                     </thead>
                     <tbody id="tableMediaBahan" class="divide-y divide-slate-100">
                         <tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada data media / bahan.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: PERSEDIAAN PUPUK & OBAT -->
+        <div id="tab-pupukobat" class="hidden space-y-4">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="p-2.5 bg-emerald-100 rounded-xl text-emerald-800"><i class="fa-solid fa-flask text-lg"></i></div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-base tracking-wide uppercase">Persediaan Pupuk & Obat Tanaman</h3>
+                        <p class="text-xs text-slate-400">Pencatatan stok pupuk, pestisida, fungisida, dan obat-obatan pertanian</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-56">
+                        <input type="text" id="searchPupukObat" oninput="renderTablePupukObat()" placeholder="Cari pupuk / obat..." class="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-agri-500 bg-slate-50">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                    </div>
+                    <button onclick="exportTabPDF('pupukobat')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
+                        <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF
+                    </button>
+                    <button onclick="openModal('modalPupukObat')" class="admin-only hidden px-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-plus"></i> Tambah Pupuk / Obat
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-100 text-slate-500 font-semibold uppercase tracking-wider">
+                            <th class="p-3">Nama Item</th>
+                            <th class="p-3">Jenis (Pupuk/Obat)</th>
+                            <th class="p-3 text-center">Stok / Qty</th>
+                            <th class="p-3">Tanggal Input</th>
+                            <th class="p-3 text-right">Total Biaya (Rp)</th>
+                            <th class="p-3 text-center admin-only hidden">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablePupukObat" class="divide-y divide-slate-100">
+                        <tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada persediaan pupuk & obat.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -873,7 +928,8 @@
                     <select id="dpTargetModule" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold text-slate-800">
                         <option value="greenhouse">Modal Green House</option>
                         <option value="modaltanaman">Modal Tanaman</option>
-                        <option value="mediabahan" selected>Modal Media / Bahan</option>
+                        <option value="mediabahan">Modal Media / Bahan</option>
+                        <option value="pupukobat" selected>Persediaan Pupuk & Obat</option>
                     </select>
                 </div>
                 <div>
@@ -1007,6 +1063,41 @@
         </div>
     </div>
 
+    <!-- MODAL: Persediaan Pupuk & Obat -->
+    <div id="modalPupukObat" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base">Tambah Persediaan Pupuk & Obat</h3>
+                <button onclick="closeModal('modalPupukObat')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form onsubmit="handleSavePupukObat(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Item</label>
+                    <input type="text" id="poItem" required placeholder="Contoh: NPK Mutiara / Fungisida" class="w-full px-3 py-2 border rounded-xl text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Jenis / Kategori</label>
+                    <select id="poType" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold text-slate-800">
+                        <option value="Pupuk">Pupuk (Padat / Cair)</option>
+                        <option value="Obat / Pestisida">Obat / Pestisida / Fungisida</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Jumlah Stok / Qty</label>
+                    <input type="text" id="poQty" required placeholder="Contoh: 5 Botol / 2 Karung" class="w-full px-3 py-2 border rounded-xl text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Total Biaya (Rp)</label>
+                    <input type="text" inputmode="numeric" id="poCost" required oninput="formatInputThousand(this)" placeholder="0" class="w-full px-3 py-2 border rounded-xl text-xs font-bold text-slate-800">
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('modalPupukObat')" class="px-4 py-2 border rounded-xl text-xs font-semibold">Batal</button>
+                    <button type="submit" class="px-5 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-xl text-xs font-semibold">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- MODAL: Panen -->
     <div id="modalPanen" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
@@ -1088,6 +1179,7 @@
         let dataGH = [];
         let dataTanaman = [];
         let dataMediaBahan = [];
+        let dataPupukObat = [];
         let dataPanen = [];
         let ghKetahananTahun = 5;
 
@@ -1445,7 +1537,7 @@
         }
 
         window.switchTab = function(tabId) {
-            ['dashboard', 'aruskas', 'modalsaham', 'greenhouse', 'modaltanaman', 'mediabahan', 'hasilpanen', 'bagihasil'].forEach(t => {
+            ['dashboard', 'aruskas', 'modalsaham', 'greenhouse', 'modaltanaman', 'mediabahan', 'pupukobat', 'hasilpanen', 'bagihasil'].forEach(t => {
                 document.getElementById(`tab-${t}`)?.classList.toggle('hidden', t !== tabId);
                 
                 const nav = document.getElementById(`nav-${t}`);
@@ -1502,6 +1594,7 @@
                 dataGH: JSON.parse(JSON.stringify(dataGH)),
                 dataTanaman: JSON.parse(JSON.stringify(dataTanaman)),
                 dataMediaBahan: JSON.parse(JSON.stringify(dataMediaBahan)),
+                dataPupukObat: JSON.parse(JSON.stringify(dataPupukObat)),
                 dataPanen: JSON.parse(JSON.stringify(dataPanen))
             }));
             if (historyStack.length > 25) historyStack.shift();
@@ -1517,6 +1610,7 @@
                 dataGH: JSON.parse(JSON.stringify(dataGH)),
                 dataTanaman: JSON.parse(JSON.stringify(dataTanaman)),
                 dataMediaBahan: JSON.parse(JSON.stringify(dataMediaBahan)),
+                dataPupukObat: JSON.parse(JSON.stringify(dataPupukObat)),
                 dataPanen: JSON.parse(JSON.stringify(dataPanen))
             }));
             const s = JSON.parse(historyStack.pop());
@@ -1525,6 +1619,7 @@
             dataGH = s.dataGH;
             dataTanaman = s.dataTanaman;
             dataMediaBahan = s.dataMediaBahan;
+            dataPupukObat = s.dataPupukObat || [];
             dataPanen = s.dataPanen;
             renderAll();
             updateUndoRedoUI();
@@ -1539,6 +1634,7 @@
                 dataGH: JSON.parse(JSON.stringify(dataGH)),
                 dataTanaman: JSON.parse(JSON.stringify(dataTanaman)),
                 dataMediaBahan: JSON.parse(JSON.stringify(dataMediaBahan)),
+                dataPupukObat: JSON.parse(JSON.stringify(dataPupukObat)),
                 dataPanen: JSON.parse(JSON.stringify(dataPanen))
             }));
             const s = JSON.parse(redoStack.pop());
@@ -1547,6 +1643,7 @@
             dataGH = s.dataGH;
             dataTanaman = s.dataTanaman;
             dataMediaBahan = s.dataMediaBahan;
+            dataPupukObat = s.dataPupukObat || [];
             dataPanen = s.dataPanen;
             renderAll();
             updateUndoRedoUI();
@@ -1554,7 +1651,7 @@
         };
 
         window.exportBackup = function() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ dataCashflow, dataInvestors, dataGH, dataTanaman, dataMediaBahan, dataPanen }, null, 2));
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ dataCashflow, dataInvestors, dataGH, dataTanaman, dataMediaBahan, dataPupukObat, dataPanen }, null, 2));
             const a = document.createElement('a');
             a.href = dataStr;
             a.download = `SmartFarming_Backup_${Date.now()}.json`;
@@ -1577,6 +1674,7 @@
                     dataGH = d.dataGH || [];
                     dataTanaman = d.dataTanaman || [];
                     dataMediaBahan = d.dataMediaBahan || [];
+                    dataPupukObat = d.dataPupukObat || [];
                     dataPanen = d.dataPanen || [];
                     renderAll();
                     showToast("Import JSON berhasil!");
@@ -1610,6 +1708,7 @@
             onSnapshot(collection(db, "greenhouse"), snap => { dataGH = snap.docs.map(d => ({id: d.id, ...d.data()})); renderAll(); }, () => {});
             onSnapshot(collection(db, "modaltanaman"), snap => { dataTanaman = snap.docs.map(d => ({id: d.id, ...d.data()})); renderAll(); }, () => {});
             onSnapshot(collection(db, "mediabahan"), snap => { dataMediaBahan = snap.docs.map(d => ({id: d.id, ...d.data()})); renderAll(); }, () => {});
+            onSnapshot(collection(db, "pupukobat"), snap => { dataPupukObat = snap.docs.map(d => ({id: d.id, ...d.data()})); renderAll(); }, () => {});
             onSnapshot(collection(db, "hasilpanen"), snap => { dataPanen = snap.docs.map(d => ({id: d.id, ...d.data()})); renderAll(); }, () => {});
         }
 
@@ -1629,19 +1728,16 @@
                     map[canonicalName] = { displayName: rawName, masuk: 0, keluar: 0, net: 0 };
                 }
                 const amt = Number(i.amount) || 0;
-                // Direct purchase or outgoing transaction from investor funds still represents equity/capital contribution
                 if (i.type === 'keluar') {
                     map[canonicalName].keluar += amt;
-                    map[canonicalName].masuk += amt; // Count as capital investment used directly
                 } else {
                     map[canonicalName].masuk += amt;
                 }
-                map[canonicalName].net = map[canonicalName].masuk - map[canonicalName].keluar;
+                map[canonicalName].net = Math.max(0, map[canonicalName].masuk - map[canonicalName].keluar);
             });
             const result = {};
             Object.values(map).forEach(obj => {
-                const totalEffectiveNet = Math.max(0, obj.masuk);
-                result[obj.displayName] = { masuk: obj.masuk, keluar: obj.keluar, net: totalEffectiveNet };
+                result[obj.displayName] = { masuk: obj.masuk, keluar: obj.keluar, net: obj.net };
             });
             return result;
         }
@@ -1653,6 +1749,7 @@
             renderTableGH();
             renderTableTanaman();
             renderTableMediaBahan();
+            renderTablePupukObat();
             renderTablePanen();
             renderProfitAnalysis();
             calculateProfitSharing();
@@ -1664,10 +1761,11 @@
 
         window.renderDashboardSummary = function() {
             const invTotals = calculateInvestorTotals();
-            const totalSaham = Object.values(invTotals).reduce((a, b) => a + Math.max(0, b.net), 0);
+            const totalSaham = Object.values(invTotals).reduce((a, b) => a + (Number(b.net) || 0), 0);
             const totalGH = dataGH.reduce((a, b) => a + (Number(b.cost) || 0), 0);
             const totalTanaman = dataTanaman.reduce((a, b) => a + (Number(b.cost) || 0), 0);
             const totalMediaBahan = dataMediaBahan.reduce((a, b) => a + (Number(b.cost) || 0), 0);
+            const totalPupukObat = dataPupukObat.reduce((a, b) => a + (Number(b.cost) || 0), 0);
             const totalPanen = dataPanen.reduce((a, b) => a + ((Number(b.qty) || 0) * (Number(b.price) || 0)), 0);
 
             const kasMasuk = dataCashflow.filter(c => c.type === 'masuk').reduce((a, b) => a + (Number(b.amount) || 0), 0);
@@ -1677,6 +1775,7 @@
             window.setText('statModalGH', formatRp(totalGH));
             window.setText('statModalTanaman', formatRp(totalTanaman));
             window.setText('statModalMediaBahan', formatRp(totalMediaBahan));
+            window.setText('statPupukObat', formatRp(totalPupukObat));
             window.setText('statTotalPanen', formatRp(totalPanen));
             window.setText('statSaldoKas', formatRp(kasMasuk - kasKeluar));
             window.setText('statLabaBagiHasil', formatRp(Math.max(0, totalPanen - totalTanaman)));
@@ -1711,11 +1810,11 @@
             const grid = document.getElementById('gridInvestorSummary');
             const tb = document.getElementById('tableInvestor');
             const invTotals = calculateInvestorTotals();
-            const totalNet = Object.values(invTotals).reduce((a, b) => a + Math.max(0, b.net), 0);
+            const totalNet = Object.values(invTotals).reduce((a, b) => a + (Number(b.net) || 0), 0);
 
             if (grid) {
                 grid.innerHTML = Object.keys(invTotals).map(name => {
-                    const net = Math.max(0, invTotals[name].net);
+                    const net = Number(invTotals[name].net) || 0;
                     const pct = totalNet > 0 ? ((net / totalNet) * 100).toFixed(1) : 0;
                     return `
                         <div class="p-3 bg-white rounded-xl border shadow-sm">
@@ -1811,6 +1910,25 @@
                     <td class="p-3">${m.date ? new Date(m.date).toLocaleDateString('id-ID') : '-'}</td>
                     <td class="p-3 text-right font-bold">${formatRp(m.cost)}</td>
                     <td class="p-3 text-center admin-only hidden"><button onclick="deleteRecord('mediabahan', '${m.id}')" class="text-red-400"><i class="fa-solid fa-trash"></i></button></td>
+                </tr>
+            `).join('');
+        };
+
+        window.renderTablePupukObat = function() {
+            const tb = document.getElementById('tablePupukObat');
+            if (!tb) return;
+            if (dataPupukObat.length === 0) {
+                tb.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Belum ada persediaan pupuk & obat.</td></tr>';
+                return;
+            }
+            tb.innerHTML = dataPupukObat.map(p => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-bold">${escapeHtml(p.item)}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] ${p.type === 'Pupuk' ? 'bg-emerald-100 text-emerald-800' : 'bg-purple-100 text-purple-800'}">${escapeHtml(p.type)}</span></td>
+                    <td class="p-3 text-center font-bold">${escapeHtml(p.qty)}</td>
+                    <td class="p-3">${p.date ? new Date(p.date).toLocaleDateString('id-ID') : '-'}</td>
+                    <td class="p-3 text-right font-bold">${formatRp(p.cost)}</td>
+                    <td class="p-3 text-center admin-only hidden"><button onclick="deleteRecord('pupukobat', '${p.id}')" class="text-red-400"><i class="fa-solid fa-trash"></i></button></td>
                 </tr>
             `).join('');
         };
@@ -1989,13 +2107,13 @@
             const tb = document.getElementById('tableBagiHasil');
             if (!tb) return;
             const invTotals = calculateInvestorTotals();
-            const totalNet = Object.values(invTotals).reduce((a, b) => a + Math.max(0, b.net), 0);
+            const totalNet = Object.values(invTotals).reduce((a, b) => a + (Number(b.net) || 0), 0);
             const totalPanen = dataPanen.reduce((a, b) => a + ((Number(b.qty)||0)*(Number(b.price)||0)), 0);
             const totalTanaman = dataTanaman.reduce((a, b) => a + (Number(b.cost)||0), 0);
             const laba = Math.max(0, totalPanen - totalTanaman);
 
             tb.innerHTML = Object.keys(invTotals).map(name => {
-                const net = Math.max(0, invTotals[name].net);
+                const net = Number(invTotals[name].net) || 0;
                 const pct = totalNet > 0 ? (net / totalNet) : 0;
                 return `<tr class="hover:bg-slate-50"><td class="p-3 font-bold">${escapeHtml(name)}</td><td class="p-3 text-right">${formatRp(net)}</td><td class="p-3 text-right">${(pct*100).toFixed(2)}%</td><td class="p-3 text-right font-bold text-purple-700">${formatRp(laba * pct)}</td></tr>`;
             }).join('');
@@ -2101,6 +2219,10 @@
                 const mbRecord = { id: batchId, item: itemName, category: 'Pembelian Langsung', cost: amount, date };
                 dataMediaBahan.unshift(mbRecord);
                 if (db) { try { await setDoc(doc(db, "mediabahan", batchId), { item: mbRecord.item, category: mbRecord.category, cost: mbRecord.cost, date: mbRecord.date }); } catch(err) {} }
+            } else if (targetModule === 'pupukobat') {
+                const poRecord = { id: batchId, item: itemName, type: 'Pupuk', qty: '1 Paket', cost: amount, date };
+                dataPupukObat.unshift(poRecord);
+                if (db) { try { await setDoc(doc(db, "pupukobat", batchId), { item: poRecord.item, type: poRecord.type, qty: poRecord.qty, cost: poRecord.cost, date: poRecord.date }); } catch(err) {} }
             }
 
             renderAll();
@@ -2143,6 +2265,18 @@
             showToast("Media disimpan!");
             e.target.reset();
             closeModal('modalMediaBahan');
+        };
+
+        window.handleSavePupukObat = async function(e) {
+            e.preventDefault();
+            saveHistoryState();
+            const r = { item: document.getElementById('poItem').value, type: document.getElementById('poType').value, qty: document.getElementById('poQty').value, cost: parseFormattedNumber(document.getElementById('poCost').value), date: Date.now() };
+            dataPupukObat.unshift({ id: Date.now().toString(), ...r });
+            if (db) await addDoc(collection(db, "pupukobat"), r);
+            renderAll();
+            showToast("Persediaan pupuk & obat disimpan!");
+            e.target.reset();
+            closeModal('modalPupukObat');
         };
 
         window.handleSavePanen = async function(e) {
@@ -2214,11 +2348,13 @@
             } else {
                 const foundInInv = dataInvestors.find(x => String(x.id) === targetId);
                 const foundInMb = dataMediaBahan.find(x => String(x.id) === targetId);
+                const foundInPo = dataPupukObat.find(x => String(x.id) === targetId);
                 const foundInGh = dataGH.find(x => String(x.id) === targetId);
                 const foundInTan = dataTanaman.find(x => String(x.id) === targetId);
                 
                 if (foundInInv && String(foundInInv.id).startsWith('dp_')) linkedBatchId = foundInInv.id;
                 else if (foundInMb && String(foundInMb.id).startsWith('dp_')) linkedBatchId = foundInMb.id;
+                else if (foundInPo && String(foundInPo.id).startsWith('dp_')) linkedBatchId = foundInPo.id;
                 else if (foundInGh && String(foundInGh.id).startsWith('dp_')) linkedBatchId = foundInGh.id;
                 else if (foundInTan && String(foundInTan.id).startsWith('dp_')) linkedBatchId = foundInTan.id;
             }
@@ -2235,6 +2371,7 @@
                         await deleteDoc(doc(db, "greenhouse", linkedBatchId));
                         await deleteDoc(doc(db, "modaltanaman", linkedBatchId));
                         await deleteDoc(doc(db, "mediabahan", linkedBatchId));
+                        await deleteDoc(doc(db, "pupukobat", linkedBatchId));
                     } catch(err) {}
                 }
 
@@ -2243,6 +2380,7 @@
                 dataGH = dataGH.filter(x => x.id !== linkedBatchId);
                 dataTanaman = dataTanaman.filter(x => x.id !== linkedBatchId);
                 dataMediaBahan = dataMediaBahan.filter(x => x.id !== linkedBatchId);
+                dataPupukObat = dataPupukObat.filter(x => x.id !== linkedBatchId);
             } else {
                 if (db) {
                     try { await deleteDoc(doc(db, coll, targetId)); } catch(err) {}
@@ -2252,6 +2390,7 @@
                 if (coll === 'greenhouse') dataGH = dataGH.filter(x => x.id !== targetId);
                 if (coll === 'modaltanaman') dataTanaman = dataTanaman.filter(x => x.id !== targetId);
                 if (coll === 'mediabahan') dataMediaBahan = dataMediaBahan.filter(x => x.id !== targetId);
+                if (coll === 'pupukobat') dataPupukObat = dataPupukObat.filter(x => x.id !== targetId);
                 if (coll === 'hasilpanen') dataPanen = dataPanen.filter(x => x.id !== targetId);
             }
 
