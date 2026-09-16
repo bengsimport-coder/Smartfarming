@@ -177,6 +177,7 @@
             </div>
         </div>
 
+        <!-- TAB: BERANDA -->
         <div id="tab-dashboard" class="space-y-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
@@ -291,6 +292,7 @@
             </div>
         </div>
 
+        <!-- TAB: ARUS KAS -->
         <div id="tab-aruskas" class="hidden space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div class="p-3.5 bg-white rounded-2xl shadow-sm border border-slate-100">
@@ -345,6 +347,7 @@
             </div>
         </div>
 
+        <!-- TAB: MODAL SAHAM -->
         <div id="tab-modalsaham" class="hidden space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
@@ -394,6 +397,7 @@
             </div>
         </div>
 
+        <!-- TAB: GREEN HOUSE -->
         <div id="tab-greenhouse" class="hidden space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div class="flex items-center gap-2.5">
@@ -420,7 +424,6 @@
                 </div>
             </div>
 
-            <!-- KETAHANAN BANGUNAN CARD -->
             <div class="bg-emerald-50/70 p-4 sm:p-5 rounded-2xl border-2 border-emerald-300 shadow-sm space-y-2">
                 <label for="ghKetahananInput" class="block font-bold text-xs uppercase text-emerald-800 tracking-wider">
                     Ketahanan Bangunan (Tahun)
@@ -452,6 +455,7 @@
             </div>
         </div>
 
+        <!-- TAB: MODAL TANAMAN -->
         <div id="tab-modaltanaman" class="hidden space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
@@ -472,7 +476,6 @@
                 </div>
             </div>
 
-            <!-- CHIPS & CALCULATOR CARD -->
             <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
                 <div>
                     <span class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Pilih Jenis Tanaman</span>
@@ -544,7 +547,6 @@
                         </div>
                     </div>
 
-                    <!-- 3 KOTAK TERPISAH -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
                         <div class="p-3.5 bg-white rounded-xl border border-emerald-300 shadow-sm flex flex-col justify-between">
                             <span class="text-[10px] font-bold text-slate-500 uppercase">1. HPP Tanaman / Pohon</span>
@@ -592,6 +594,7 @@
             </div>
         </div>
 
+        <!-- TAB: MEDIA / BAHAN -->
         <div id="tab-mediabahan" class="hidden space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
@@ -630,6 +633,7 @@
             </div>
         </div>
 
+        <!-- TAB: PERSEDIAAN PUPUK & OBAT -->
         <div id="tab-pupukobat" class="hidden space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div class="flex items-center gap-2.5">
@@ -672,6 +676,7 @@
             </div>
         </div>
 
+        <!-- TAB: HASIL PANEN -->
         <div id="tab-hasilpanen" class="hidden space-y-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 gap-3">
                 <div>
@@ -712,7 +717,6 @@
                 </table>
             </div>
 
-            <!-- TABEL ANALISIS KEUNTUNGAN & ROI -->
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
                 <div class="flex items-center justify-between border-b pb-3">
                     <div>
@@ -744,6 +748,7 @@
             </div>
         </div>
 
+        <!-- TAB: BAGI HASIL -->
         <div id="tab-bagihasil" class="hidden space-y-4">
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-3 gap-3">
@@ -781,6 +786,7 @@
         </div>
     </main>
 
+    <!-- MODAL: ADMIN PASSWORD -->
     <div id="modalAdminPassword" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl space-y-4">
             <div class="flex items-center gap-3 text-agri-800 border-b pb-3">
@@ -1737,36 +1743,27 @@
             const map = {};
             
             defaultInvestors.forEach(invName => {
-                map[invName.toLowerCase().trim()] = { displayName: invName, masuk: 0, keluar: 0, net: 0 };
+                map[invName.toLowerCase().trim()] = { displayName: invName, total: 0 };
             });
 
             dataInvestors.forEach(i => {
                 const rawName = (i.name || 'Investor').trim();
                 const canonicalName = rawName.toLowerCase();
                 if (!map[canonicalName]) {
-                    map[canonicalName] = { displayName: rawName, masuk: 0, keluar: 0, net: 0 };
+                    map[canonicalName] = { displayName: rawName, total: 0 };
                 }
                 const amt = Number(i.amount) || 0;
-                if (i.type === 'keluar') {
-                    map[canonicalName].keluar += amt;
-                } else {
-                    map[canonicalName].masuk += amt;
-                }
-            });
-
-            Object.keys(map).forEach(key => {
-                const item = map[key];
-                item.net = Math.max(0, item.masuk - item.keluar);
+                map[canonicalName].total += amt;
             });
 
             const result = {};
             Object.values(map).forEach(obj => {
-                if (obj.net > 0 || obj.masuk > 0 || obj.keluar > 0) {
-                    result[obj.displayName] = { masuk: obj.masuk, keluar: obj.keluar, net: obj.net };
+                if (obj.total > 0) {
+                    result[obj.displayName] = { net: obj.total };
                 }
             });
             if (Object.keys(result).length === 0) {
-                defaultInvestors.forEach(inv => { result[inv] = { masuk: 0, keluar: 0, net: 0 }; });
+                defaultInvestors.forEach(inv => { result[inv] = { net: 0 }; });
             }
             return result;
         }
@@ -2211,7 +2208,7 @@
             const date = Date.now();
             const batchId = 'dp_' + date;
 
-            const invRecord = { id: batchId, name: invName, type: 'keluar', detail: `Pembelian Langsung: ${itemName}`, amount, date };
+            const invRecord = { id: batchId, name: invName, type: 'masuk', detail: `Pembelian Langsung: ${itemName}`, amount, date };
             dataInvestors.unshift(invRecord);
             if (db) {
                 try { await setDoc(doc(db, "investors", batchId), { name: invRecord.name, type: invRecord.type, detail: invRecord.detail, amount: invRecord.amount, date: invRecord.date }); } catch(err) {}
