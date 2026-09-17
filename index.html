@@ -1958,13 +1958,25 @@
 
             const invListEl = document.getElementById('dashInvestorList');
             if (invListEl) {
-                const filteredInvKeys = Object.keys(invTotals).filter(k => !query || k.toLowerCase().includes(query));
-                invListEl.innerHTML = filteredInvKeys.length === 0 ? '<p class="text-slate-400">Tidak ada investor.</p>' : filteredInvKeys.map(name => `
+                const sortedInvNames = Object.keys(invTotals).sort((a, b) => invTotals[b].net - invTotals[a].net);
+                const filteredInvKeys = sortedInvNames.filter(k => !query || k.toLowerCase().includes(query));
+                
+                let html = filteredInvKeys.length === 0 ? '<p class="text-slate-400">Tidak ada investor.</p>' : filteredInvKeys.map(name => `
                     <div class="flex justify-between items-center p-2 bg-slate-50 rounded-xl">
                         <div class="font-bold">${escapeHtml(name)}</div>
                         <div class="font-extrabold text-blue-600">${formatRp(invTotals[name].net)}</div>
                     </div>
                 `).join('');
+
+                if (masjidLoanTotal > 0 && (!query || 'pinjam kas masjid'.includes(query))) {
+                    html += `
+                        <div class="flex justify-between items-center p-2 bg-amber-50 rounded-xl border border-amber-200 mt-2">
+                            <div class="flex items-center gap-1.5"><i class="fa-solid fa-mosque text-amber-700"></i><span class="font-bold text-amber-900">Pinjam Kas Masjid</span></div>
+                            <div class="font-extrabold text-amber-950">${formatRp(masjidLoanTotal)}</div>
+                        </div>
+                    `;
+                }
+                invListEl.innerHTML = html;
             }
         };
 
@@ -2002,7 +2014,7 @@
             const tb = document.getElementById('tableInvestor');
             const query = (document.getElementById('searchInvestor')?.value || '').toLowerCase().trim();
             const invTotals = calculateInvestorTotals();
-            const realInvestors = Object.keys(invTotals);
+            const realInvestors = Object.keys(invTotals).sort((a, b) => invTotals[b].net - invTotals[a].net);
             const totalNet = realInvestors.reduce((a, b) => a + (Number(invTotals[b].net) || 0), 0);
 
             // Calculate Total Masjid Loan
@@ -2489,7 +2501,7 @@
             const tb = document.getElementById('tableBagiHasil');
             if (!tb) return;
             const invTotals = calculateInvestorTotals();
-            const realInvestors = Object.keys(invTotals);
+            const realInvestors = Object.keys(invTotals).sort((a, b) => invTotals[b].net - invTotals[a].net);
             const totalNet = realInvestors.reduce((a, b) => a + (Number(invTotals[b].net) || 0), 0);
             const totalPanen = dataPanen.reduce((a, b) => a + ((Number(b.qty)||0)*(Number(b.price)||0)), 0);
             const totalTanaman = dataTanaman.reduce((a, b) => a + (Number(b.cost)||0), 0);
