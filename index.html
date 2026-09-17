@@ -282,11 +282,22 @@
 
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-3">
                     <h4 class="font-bold text-slate-800 text-sm flex items-center justify-between">
-                        <span><i class="fa-solid fa-users text-blue-600 mr-2"></i>Daftar Pemegang Saham</span>
+                        <span><i class="fa-solid fa-users text-blue-600 mr-2"></i>Daftar Pemegang Saham & Kas Masjid</span>
                         <button onclick="switchTab('modalsaham')" class="text-xs text-blue-600 font-semibold hover:underline">Lihat Semua</button>
                     </h4>
                     <div id="dashInvestorList" class="space-y-2 text-xs">
                         <p class="text-slate-400">Belum ada investor terdaftar.</p>
+                    </div>
+                    <!-- Pinjam Kas Masjid Summary on Beranda -->
+                    <div id="dashMasjidLoanContainer" class="p-3 bg-amber-50 rounded-xl border border-amber-200 flex justify-between items-center mt-2">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-mosque text-amber-700 text-base"></i>
+                            <div>
+                                <span class="font-bold text-amber-900 text-xs block">Pinjam Kas Masjid (External Liability)</span>
+                                <span class="text-[10px] text-amber-700">Tidak termasuk dalam persentase saham investor</span>
+                            </div>
+                        </div>
+                        <span id="dashStatMasjidLoanTotal" class="font-extrabold text-amber-950 text-sm">Rp 0</span>
                     </div>
                 </div>
             </div>
@@ -1918,6 +1929,19 @@
             window.setText('statTotalPanen', formatRp(totalPanen));
             window.setText('statSaldoKas', formatRp(kasMasuk - kasKeluar));
             window.setText('statLabaBagiHasil', formatRp(Math.max(0, totalPanen - totalTanaman)));
+
+            // Calculate Total Masjid Loan for dashboard
+            let masjidLoanTotal = 0;
+            dataInvestors.forEach(i => {
+                if ((i.name || '').toLowerCase() === 'pinjam kas masjid') {
+                    masjidLoanTotal += (Number(i.amount) || 0);
+                }
+            });
+            window.setText('dashStatMasjidLoanTotal', formatRp(masjidLoanTotal));
+            const masjidContainer = document.getElementById('dashMasjidLoanContainer');
+            if (masjidContainer) {
+                masjidContainer.classList.toggle('hidden', masjidLoanTotal <= 0);
+            }
 
             // Render lists with search query
             const filteredCf = dataCashflow.filter(c => !query || (c.desc && c.desc.toLowerCase().includes(query)) || (c.category && c.category.toLowerCase().includes(query)));
